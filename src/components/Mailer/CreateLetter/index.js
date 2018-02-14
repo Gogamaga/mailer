@@ -20,6 +20,7 @@ export default class CreateLetter extends Component {
         this.addLetterItem = this.addLetterItem.bind(this);
         this.handleSaveLetter = this.handleSaveLetter.bind(this);
         this.handleEditLetter = this.handleEditLetter.bind(this);
+
         // this.validateInput = this.validateInput.bind(this);
     }
     componentDidMount() {

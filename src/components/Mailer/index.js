@@ -4,6 +4,7 @@ import "./style.css";
 import request from "../../requests";
 import Button from "../button";
 import CreateLetter from "./CreateLetter";
+import Tooltip from "../tooltip";
 
 export default class Mailer extends Component {
     constructor(props) {
@@ -11,7 +12,9 @@ export default class Mailer extends Component {
         this.state = {
             letters: [],
             createLetter: false,
-            editLetterId: null
+            editLetterId: null,
+            statusResponse: false,
+            statusDataBase: false
         };
 
         this.handlerSend = this.handlerSend.bind(this);
@@ -26,9 +29,14 @@ export default class Mailer extends Component {
     }
     render() {
         const { activeLink, onClick } = this.props;
-        const { letters, createLetter, editLetterId } = this.state;
+        const { letters, createLetter, editLetterId, statusDataBase, statusResponse } = this.state;
         return (
             <div className="mailer-wrap">
+                <Tooltip
+                    className={statusResponse ? "tooltip tooltip_visible" : "tooltip tooltip_hide"}
+                >
+                    {statusDataBase ? "Delete Success" : "Error Data Base"}
+                </Tooltip>
                 {!createLetter ? (
                     <Button
                         backgroundColor={"hsl(206.1, 79.3%, 52.7%)"}
@@ -66,9 +74,22 @@ export default class Mailer extends Component {
         this.setState({ createLetter: true, editLetterId: id });
     }
     handlerDelete({ target }) {
-        const id = +target.closest("tr").dataset.id;
-        this.setState(prevState => {
-            return { letters: prevState.letters.filter(letter => letter.id !== id) };
+        const id = target.closest("tr").dataset.id;
+        request.deleteLetter(id).then(({ data }) => {
+            this.setState(
+                prevState => {
+                    return {
+                        statusResponse: true,
+                        statusDataBase: data.n,
+                        letters: prevState.letters.filter(letter => letter._id !== id)
+                    };
+                },
+                () => {
+                    setTimeout(() => {
+                        this.setState({ statusResponse: false });
+                    }, 2000);
+                }
+            );
         });
     }
     handleCreateLetter() {

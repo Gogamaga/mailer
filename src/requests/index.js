@@ -17,5 +17,8 @@ export default {
     },
     updateLetter(id, letter) {
         return axios.put(`${url.host}${url.letter}/${id}`, letter);
+    },
+    deleteLetter(id) {
+        return axios.delete(`${url.host}${url.letter}/${id}`);
     }
 };

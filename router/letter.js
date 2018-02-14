@@ -24,5 +24,12 @@ module.exports = {
             .updateLetter(id, letter)
             .then(result => res.send(result))
             .catch(result => console.log(result));
+    },
+    deleteLetter: (req, res) => {
+        const id = req.params.id;
+        dataBase
+            .deleteLetter(id)
+            .then(result => res.send(result))
+            .catch(result => console.log(result));
     }
 };

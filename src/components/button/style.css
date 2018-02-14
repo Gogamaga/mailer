@@ -9,8 +9,12 @@
     transition: all 0.3s transform 0.1s;
 }
 .button:disabled {
-    background-color: #b1aeae;
+    background-color: #b1b0ae;
     cursor: not-allowed;
+}
+.button:hover:disabled {
+    background-color: #b1b0ae;
+    color: #ffffff;
 }
 .button:hover {
     background-color: #ffffff;

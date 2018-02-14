@@ -35,4 +35,5 @@ app.post("/letter", letterRouter.saveLetter);
 app.get("/letter", letterRouter.getAllLetters);
 app.get("/letter/:id", letterRouter.getOneLetter);
 app.put("/letter/:id", letterRouter.updateLetter);
+app.delete("/letter/:id", letterRouter.deleteLetter);
 app.listen(3000, () => console.log("Server Start in 3000 port"));

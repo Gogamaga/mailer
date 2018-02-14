@@ -67,5 +67,10 @@ module.exports = {
         return connectDB().then(db => {
             return db.collection(letters).update({ _id: ObjectId(id) }, letter);
         });
+    },
+    deleteLetter: id => {
+        return connectDB().then(db => {
+            return db.collection(letters).deleteOne({ _id: ObjectId(id) });
+        });
     }
 };

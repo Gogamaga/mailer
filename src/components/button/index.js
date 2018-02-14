@@ -11,7 +11,7 @@ export default class Button extends Component {
     }
 
     render() {
-        const { backgroundColor, onClick, children, disabled } = this.props;
+        const  { backgroundColor, onClick, children, disabled } = this.props;
         return (
             <button
                 onClick={onClick}
