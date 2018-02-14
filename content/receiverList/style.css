@@ -1,0 +1,10 @@
+.receivers-table {
+    width: 100%;
+}
+.receivers-table__head {
+    background-color: rgb(13, 21, 29);
+    color: #ffffff;
+}
+.receivers-table__head th {
+    padding: 10px 0;
+}

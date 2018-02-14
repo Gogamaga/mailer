@@ -1,0 +1,14 @@
+.navigator-list {
+    display: flex;
+}
+.navigator-list__item-link {
+    padding: 13px;
+    color: rgba(255, 255, 255, 0.7);
+}
+.navigator-list__item-link.active {
+    border-bottom: 2px solid #ff0000;
+    color: rgb(255, 255, 255);
+}
+.navigator-list__item-link:hover {
+    color: rgb(255, 255, 255);
+}

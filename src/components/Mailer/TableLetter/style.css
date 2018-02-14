@@ -1,0 +1,10 @@
+.mailer-table {
+    width: 100%;
+    margin-top: 20px;
+}
+.mailer-table__thead > tr {
+    background-color: #232323;
+}
+.mailer-table__thead th {
+    padding: 15px 0;
+}

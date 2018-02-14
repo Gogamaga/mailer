@@ -1,0 +1,21 @@
+.create-letter {
+    width: 100%;
+    margin-top: 20px;
+    background-color: #232323;
+    padding: 20px;
+}
+.create-letter > hr {
+    margin: 20px 0;
+    background-color: rgba(255, 255, 255, 0.7);
+    height: 1px;
+    border: none;
+}
+.create-letter__info {
+    width: 50%;
+    margin: 0 auto;
+}
+.create-letter__button-group {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 0 0;
+}

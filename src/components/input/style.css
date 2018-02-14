@@ -1,0 +1,29 @@
+.container-input {
+    width: 100%;
+}
+.container-input__input {
+    width: 100%;
+    border: none;
+    background-color: #ffffff3f;
+    outline: none;
+    padding: 15px 10px;
+    font-size: 16px;
+    transition: background-color 0.3s;
+    font-weight: 300;
+    letter-spacing: 1px;
+}
+.container-input__hr {
+    background-color: hsl(206.1, 79.3%, 52.7%);
+    height: 1px;
+    border: none;
+    margin: 0 auto;
+    width: 100%;
+    transition: width 0.5s;
+}
+.container-input__hr_focus {
+    width: 0;
+}
+.container-input__input:focus {
+    background-color: #ffffffbd;
+    color: #272525;
+}
