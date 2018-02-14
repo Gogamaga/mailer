@@ -6,6 +6,7 @@ import Input from "../../input";
 import Button from "../../button";
 import Letter from "./Letter";
 import Tooltip from "../../tooltip";
+import utils from "../../../utils";
 
 export default class CreateLetter extends Component {
     constructor(props) {
@@ -14,13 +15,14 @@ export default class CreateLetter extends Component {
             letter: {},
             statusResponse: false,
             statusDataBase: false,
-            disabledButton: true
+            disabledButton: false,
+            tooltipText: null
         };
         this.handleChange = this.handleChange.bind(this);
         this.addLetterItem = this.addLetterItem.bind(this);
         this.handleSaveLetter = this.handleSaveLetter.bind(this);
         this.handleEditLetter = this.handleEditLetter.bind(this);
-
+        this.hideTooltip = utils.hideTooltip.bind(this);
         // this.validateInput = this.validateInput.bind(this);
     }
     componentDidMount() {
@@ -31,13 +33,13 @@ export default class CreateLetter extends Component {
             : this.setState({ letter: constants.newLetter });
     }
     render() {
-        const { letter, statusResponse, statusDataBase, disabledButton } = this.state;
+        const { letter, statusResponse, statusDataBase, disabledButton, tooltipText } = this.state;
         return (
             <div className="create-letter">
                 <Tooltip
                     className={statusResponse ? "tooltip tooltip_visible" : "tooltip tooltip_hide"}
                 >
-                    {statusDataBase ? "Save Success" : "Error Data Base"}
+                    {tooltipText}
                 </Tooltip>
                 <div className="create-letter__info">
                     <label>
@@ -105,30 +107,26 @@ export default class CreateLetter extends Component {
         );
     }
     handleChange({ target }) {
-        const value = target.value;
+        const value = target.value.trim();
         const name = target.name;
-
-        this.setState(
-            ({ letter }) => {
-                if (letter[name] !== undefined) {
-                    letter[name] = value;
-                    const newState = letter;
-                    return { letter: newState };
-                } else {
-                    const id = target.closest(".create-letter__item").dataset.id;
-                    const newLetterItem = letter.letterItem.map(item => {
-                        if (item.id == id) {
-                            item[name] = value;
-                        }
-                        return item;
-                    });
-                    letter.letterItem = [...newLetterItem];
-                    const newState = letter;
-                    return { letter: newState };
-                }
-            },
-            () => this.validateInput()
-        );
+        this.setState(({ letter }) => {
+            if (letter[name] !== undefined) {
+                letter[name] = value;
+                const newState = letter;
+                return { letter: newState };
+            } else {
+                const id = target.closest(".create-letter__item").dataset.id;
+                const newLetterItem = letter.letterItem.map(item => {
+                    if (item.id == id) {
+                        item[name] = value;
+                    }
+                    return item;
+                });
+                letter.letterItem = [...newLetterItem];
+                const newState = letter;
+                return { letter: newState };
+            }
+        });
     }
     addLetterItem() {
         this.setState(({ letter }) => {
@@ -138,15 +136,25 @@ export default class CreateLetter extends Component {
         });
     }
     handleSaveLetter() {
-        request
-            .saveLetter(this.state.letter)
-            .then(({ data }) => {
-                this.setState({ statusDataBase: data.n, statusResponse: true });
-                setTimeout(() => {
-                    this.setState({ statusResponse: false });
-                }, 2000);
-            })
-            .catch(result => console.log(result));
+        const { letter } = this.state;
+        if (utils.validateInput(letter)) {
+            request
+                .saveLetter(letter)
+                .then(({ data }) => {
+                    this.setState({
+                        statusDataBase: data.n,
+                        statusResponse: true,
+                        tooltipText: "Saved Success"
+                    });
+                    this.hideTooltip({ statusResponse: false }, 2000);
+                    // setTimeout(() => {
+                    //     this.setState({ statusResponse: false });
+                    // }, 2000);
+                })
+                .catch(result => console.log(result));
+        } else {
+            console.log("bad");
+        }
     }
     handleEditLetter() {
         request
@@ -159,12 +167,5 @@ export default class CreateLetter extends Component {
                 }, 2000);
             })
             .catch(result => console.log("error", result));
-    }
-    validateInput() {
-        if (this.state.letter.name) {
-            this.setState({ disabledButton: false });
-        } else {
-            this.setState({ disabledButton: true });
-        }
     }
 }

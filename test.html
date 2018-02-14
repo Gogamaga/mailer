@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        const newLetter = {
+            name: "q",
+            subject: "q",
+            letterItem: [
+                {
+                    id: 1,
+                    itemName: "q",
+                    hrefItem: "q",
+                    imageItem: "q",
+                    brandName: "q",
+                    imageBrand: "q",
+                    price: "q",
+                    count: "q",
+                    units: "q"
+                },
+                {
+                    id: 1,
+                    itemName: "",
+                    hrefItem: "q",
+                    imageItem: "q",
+                    brandName: "q",
+                    imageBrand: "q",
+                    price: "q",
+                    count: "q",
+                    units: "q"
+                }
+            ],
+            receivers: []
+        }
+        function validateInput(validateObject) {
+            for (key in validateObject) {
+                if (!validateObject[key]) {
+                    return false;
+                } else if (validateObject[key] instanceof Array) {
+                    const array = validateObject[key];
+                    for (let i = 0; i < array.length; i++) {
+                        if (array[i] instanceof Object) {
+                            for (key in array[i]) {
+                                const object = array[i];
+                                if (!object[key]) {
+                                    return false;
+                                }
+                            }
+                        } else {
+                            if (!array[i]) {
+                                return false;
+                            }
+                        }
+                    }
+                }
+            }
+            return true;
+        }
+        console.log(validateInput({ name: 's' }))
+    </script>
+</body>
+
+</html>
