@@ -24,7 +24,7 @@ export default {
                 imageBrand: "",
                 price: "",
                 count: "",
-                units: "од"
+                units: ""
             }
         ],
         receivers: []

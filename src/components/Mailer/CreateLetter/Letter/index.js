@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./style.css";
 import Input from "../../../input";
+import InputRadio from "../../../inputRadio";
 
 export default class Letter extends Component {
     constructor(props) {
@@ -17,7 +18,8 @@ export default class Letter extends Component {
             imageBrand,
             price,
             count,
-            onChange
+            onChange,
+            units
         } = this.props;
         return (
             <div className="create-letter__item" data-id={id}>
@@ -36,12 +38,38 @@ export default class Letter extends Component {
                 <label>
                     Brand Image<Input value={imageBrand} name={"imageBrand"} onChange={onChange} />
                 </label>
-                <label>
-                    Price<Input value={price} type="number" name={"price"} onChange={onChange} />
-                </label>
-                <label>
-                    Count<Input value={count} type="number" name={"count"} onChange={onChange} />
-                </label>
+                <div className="create-letter__item-input-number-group">
+                    <label>
+                        Price<Input
+                            value={price}
+                            type="number"
+                            name={"price"}
+                            onChange={onChange}
+                        />
+                    </label>
+                    <label>
+                        Count<Input
+                            value={count}
+                            type="number"
+                            name={"count"}
+                            onChange={onChange}
+                        />
+                    </label>
+                </div>
+                <div className="create-letter__item-input-radio-group">
+                    <div>
+                        <label>
+                            <InputRadio name="units" value="од" onChange={onChange} units={units} />
+                            unints.
+                        </label>
+                    </div>
+                    <div>
+                        <label>
+                            <InputRadio name="units" value="кг" onChange={onChange} units={units} />
+                            kg.
+                        </label>
+                    </div>
+                </div>
                 <hr />
             </div>
         );

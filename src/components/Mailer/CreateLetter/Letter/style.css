@@ -4,3 +4,16 @@
 .create-letter__item > hr {
     margin-top: 20px;
 }
+.create-letter__item-input-radio-group {
+    display: flex;
+}
+.create-letter__item-input-number-group {
+    display: flex;
+    flex-direction: column;
+}
+.create-letter__item-input-number-group > label {
+    width: 20%;
+}
+.create-letter__item-input-radio-group > div {
+    padding: 10px 0 0 10px;
+}

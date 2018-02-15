@@ -6,7 +6,88 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .container-input-radio {
+            display: block;
+            position: relative;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background-color: rgba(230, 230, 230, 0.959)
+        }
+
+        .container-input-radio input {
+            width: 25px;
+            height: 25px;
+            opacity: 0;
+        }
+
+
+
+        .container-input-radio input:checked+.checkmark .checkmark-circle {
+            border: 7.5px solid rgb(38, 147, 230);
+            transition: all .2s;
+            width: 10px;
+            height: 10px;
+        }
+
+        .container-input-radio input:hover+.checkmark .checkmark-circle {
+            border: 7.5px solid rgba(105, 186, 248, 0.363);
+            transition: all .2s;
+            width: 10px;
+            height: 10px;
+        }
+
+        .container-input-radio input:checked:hover+.checkmark .checkmark-circle {
+            border: 7.5px solid rgb(38, 147, 230);
+
+        }
+
+        .checkmark {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background-color: rgb(228, 228, 228);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+        }
+
+        .checkmark-circle {
+            width: 0px;
+            height: 0px;
+            background-color: #fff;
+            border-radius: 50%;
+        }
+    </style>
 </head>
+
+<label class="container-input-radio">
+    <span>asdgbfv</span>
+    <input type="radio" name="units" id="q">
+    <span class="checkmark">
+        <span class="checkmark-circle"></span>
+    </span>
+</label>
+
+
+
+<label class="container-input-radio">
+    <input type="radio" name="units" id="q">
+    <span class="checkmark">
+        <span class="checkmark-circle"></span>
+    </span>
+</label>
+
 
 <body>
     <script>

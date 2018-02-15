@@ -9,10 +9,6 @@ export default class Input extends Component {
         };
         this.handleFocus = this.handleFocus.bind(this);
         this.handleBlur = this.handleBlur.bind(this);
-        this.handle = this.handle.bind(this);
-    }
-    handle() {
-        return "sdf";
     }
 
     render() {

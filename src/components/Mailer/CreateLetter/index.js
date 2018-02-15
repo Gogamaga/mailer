@@ -23,7 +23,6 @@ export default class CreateLetter extends Component {
         this.handleSaveLetter = this.handleSaveLetter.bind(this);
         this.handleEditLetter = this.handleEditLetter.bind(this);
         this.hideTooltip = utils.hideTooltip.bind(this);
-        // this.validateInput = this.validateInput.bind(this);
     }
     componentDidMount() {
         this.props.id
@@ -75,7 +74,8 @@ export default class CreateLetter extends Component {
                                 brandName,
                                 imageBrand,
                                 price,
-                                count
+                                count,
+                                units
                             } = item;
                             return (
                                 <Letter
@@ -89,6 +89,7 @@ export default class CreateLetter extends Component {
                                     price={price}
                                     count={count}
                                     onChange={this.handleChange}
+                                    units={units}
                                 />
                             );
                         })}
@@ -141,15 +142,14 @@ export default class CreateLetter extends Component {
             request
                 .saveLetter(letter)
                 .then(({ data }) => {
-                    this.setState({
-                        statusDataBase: data.n,
-                        statusResponse: true,
-                        tooltipText: "Saved Success"
-                    });
-                    this.hideTooltip({ statusResponse: false }, 2000);
-                    // setTimeout(() => {
-                    //     this.setState({ statusResponse: false });
-                    // }, 2000);
+                    this.setState(
+                        {
+                            statusDataBase: data.n,
+                            statusResponse: true,
+                            tooltipText: "Saved Success"
+                        },
+                        this.hideTooltip({ statusResponse: false }, 2000)
+                    );
                 })
                 .catch(result => console.log(result));
         } else {
@@ -157,15 +157,23 @@ export default class CreateLetter extends Component {
         }
     }
     handleEditLetter() {
-        request
-            .updateLetter(this.props.id, this.state.letter)
-            .then(({ data }) => {
-                console.log(data);
-                this.setState({ statusDataBase: data.n, statusResponse: true });
-                setTimeout(() => {
-                    this.setState({ statusResponse: false });
-                }, 2000);
-            })
-            .catch(result => console.log("error", result));
+        const { letter } = this.state;
+        if (utils.validateInput(letter)) {
+            request
+                .updateLetter(this.props.id, letter)
+                .then(({ data }) => {
+                    this.setState({
+                        statusDataBase: data.n,
+                        statusResponse: true,
+                        tooltipText: "Edit Success"
+                    });
+                    setTimeout(() => {
+                        this.setState({ statusResponse: false });
+                    }, 2000);
+                })
+                .catch(result => console.log("error", result));
+        } else {
+            console.log("bad");
+        }
     }
 }
