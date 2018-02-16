@@ -17,3 +17,6 @@
 .create-letter__item-input-radio-group > div {
     padding: 10px 0 0 10px;
 }
+.create-letter__item > button {
+    float: right;
+}

@@ -23,6 +23,7 @@ export default class CreateLetter extends Component {
         this.handleSaveLetter = this.handleSaveLetter.bind(this);
         this.handleEditLetter = this.handleEditLetter.bind(this);
         this.hideTooltip = utils.hideTooltip.bind(this);
+        this.handlerDeleteLetterItem = this.handlerDeleteLetterItem.bind(this);
     }
     componentDidMount() {
         this.props.id
@@ -65,7 +66,7 @@ export default class CreateLetter extends Component {
                 <hr />
                 <div className="">
                     {letter.letterItem &&
-                        letter.letterItem.map(item => {
+                        letter.letterItem.map((item, index, array) => {
                             const {
                                 id,
                                 itemName,
@@ -90,6 +91,8 @@ export default class CreateLetter extends Component {
                                     count={count}
                                     onChange={this.handleChange}
                                     units={units}
+                                    array={array}
+                                    handlerDeleteLetterItem={this.handlerDeleteLetterItem}
                                 />
                             );
                         })}
@@ -131,7 +134,15 @@ export default class CreateLetter extends Component {
     }
     addLetterItem() {
         this.setState(({ letter }) => {
-            const newLetterItem = [...letter.letterItem, constants.newItem];
+            const newLetterItem = [...letter.letterItem, constants.newItem()];
+            letter.letterItem = [...newLetterItem];
+            return { letter: letter };
+        });
+    }
+    handlerDeleteLetterItem({ target }) {
+        const id = target.closest(".create-letter__item").dataset.id;
+        this.setState(({ letter }) => {
+            const newLetterItem = letter.letterItem.filter(item => item.id !== id);
             letter.letterItem = [...newLetterItem];
             return { letter: letter };
         });

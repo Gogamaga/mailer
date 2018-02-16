@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./style.css";
 import Input from "../../../input";
 import InputRadio from "../../../inputRadio";
+import Button from "../../../button";
 
 export default class Letter extends Component {
     constructor(props) {
@@ -19,10 +20,18 @@ export default class Letter extends Component {
             price,
             count,
             onChange,
-            units
+            units,
+            array,
+            handlerDeleteLetterItem
         } = this.props;
         return (
             <div className="create-letter__item" data-id={id}>
+                {array.length > 1 && (
+                    <Button onClick={handlerDeleteLetterItem}>
+                        <i className="fas fa-times" />
+                    </Button>
+                )}
+
                 <label>
                     Href Item<Input value={hrefItem} name={"hrefItem"} onChange={onChange} />
                 </label>

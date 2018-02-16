@@ -1,15 +1,17 @@
 import shortId from "short-id";
 
 export default {
-    newItem: {
-        id: shortId.generate(),
-        itemName: "",
-        hrefItem: "",
-        imageItem: "",
-        brandName: "",
-        imageBrand: "",
-        price: "",
-        count: ""
+    newItem: () => {
+        return {
+            id: shortId.generate(),
+            itemName: "",
+            hrefItem: "",
+            imageItem: "",
+            brandName: "",
+            imageBrand: "",
+            price: "",
+            count: ""
+        };
     },
     newLetter: {
         name: "",
