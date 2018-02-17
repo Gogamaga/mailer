@@ -44,6 +44,8 @@ module.exports = {
                 .then(res => console.log(res));
         });
     },
+
+    // LETTER METHODS
     saveLetter: letter => {
         return connectDB().then(db => {
             return db.collection(letters).insertOne(letter);

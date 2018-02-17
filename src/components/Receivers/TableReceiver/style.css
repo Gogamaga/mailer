@@ -1,0 +1,10 @@
+.receiver-table {
+    width: 100%;
+    margin-top: 20px;
+}
+.receiver-table__thead > tr {
+    background-color: #232323;
+}
+.receiver-table__thead th {
+    padding: 15px 0;
+}

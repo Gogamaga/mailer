@@ -71,81 +71,44 @@
     </style>
 </head>
 
-<label class="container-input-radio">
-    <span>asdgbfv</span>
-    <input type="radio" name="units" id="q">
-    <span class="checkmark">
-        <span class="checkmark-circle"></span>
-    </span>
-</label>
-
-
-
-<label class="container-input-radio">
-    <input type="radio" name="units" id="q">
-    <span class="checkmark">
-        <span class="checkmark-circle"></span>
-    </span>
-</label>
-
 
 <body>
-    <script>
-        const newLetter = {
-            name: "q",
-            subject: "q",
-            letterItem: [
-                {
-                    id: 1,
-                    itemName: "q",
-                    hrefItem: "q",
-                    imageItem: "q",
-                    brandName: "q",
-                    imageBrand: "q",
-                    price: "q",
-                    count: "q",
-                    units: "q"
-                },
-                {
-                    id: 1,
-                    itemName: "",
-                    hrefItem: "q",
-                    imageItem: "q",
-                    brandName: "q",
-                    imageBrand: "q",
-                    price: "q",
-                    count: "q",
-                    units: "q"
-                }
-            ],
-            receivers: []
-        }
-        function validateInput(validateObject) {
-            for (key in validateObject) {
-                if (!validateObject[key]) {
-                    return false;
-                } else if (validateObject[key] instanceof Array) {
-                    const array = validateObject[key];
-                    for (let i = 0; i < array.length; i++) {
-                        if (array[i] instanceof Object) {
-                            for (key in array[i]) {
-                                const object = array[i];
-                                if (!object[key]) {
-                                    return false;
-                                }
-                            }
-                        } else {
-                            if (!array[i]) {
-                                return false;
-                            }
-                        }
-                    }
-                }
+    <input type="text" value="" class="valute">
+    <input type="text" value="" class="count">
+    <span class="" res></span>
+    <button class="button">start</button>
+
+    <select name="" id="qq">
+        <option value="usd"></option>
+        <option value="euro"></option>
+        <option value="rub"></option>
+    </select>
+    <script>    
+        var select = document.querySelector('#qq')
+
+
+        function foreach(arr, callback) {
+            for (var i = 0; i < arr.length; i++) {
+                callback(arr[i])
             }
-            return true;
         }
-        console.log(validateInput({ name: 's' }))
+
+
+        function map(array, calback) {
+            const newArray = []
+            for (var i = 0; i < array.length; i++) {
+                const newElem = calback(array[i]);
+                newArray.push(newElem)
+            }
+            return newArray
+        }
+
+        const newArray = map([1, 4, 2, 7, 1], el => el + 1);
+        console.log([1, 4, 2, 7, 1, 2, 6, -1].sort((a, b) => {
+            console.log(a, b)
+            return a - b;
+        }))
+
     </script>
-</body>
 
 </html>

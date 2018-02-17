@@ -17,7 +17,7 @@ export default class App extends Component {
         return (
             <div className="container">
                 <Header activeLink={activeLink} onClick={this.handlerClick} />
-                <Main />
+                <Main activeLink={activeLink} />
             </div>
         );
     }
