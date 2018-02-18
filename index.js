@@ -29,7 +29,10 @@ app.post("/receiver", receiverRouter.saveReceiver);
 
 app.get("/receiver", receiverRouter.getAllReceiver);
 
+app.get("/receiver/:id", receiverRouter.getOneReceiver);
+
 app.post("/receiver", receiverRouter.saveReceiver);
+app.put("/receiver/:id", receiverRouter.updateReceiver);
 
 app.delete("/receiver", receiverRouter.deleteReceiver);
 

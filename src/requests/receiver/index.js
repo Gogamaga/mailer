@@ -7,16 +7,16 @@ export default {
     getAllReceiver() {
         return axios.get(`${host}${receiver}`);
     },
-    getOneLetter(id) {
+    getOneReceiver(id) {
         return axios.get(`${host}${receiver}/${id}`);
     },
-    saveLetter(letter) {
-        return axios.post(`${host}${receiver}}`, letter);
+    saveReceiver(receiver) {
+        return axios.post(`${host}${receiver}`, receiver);
     },
-    updateLetter(id, letter) {
-        return axios.put(`${host}${receiver}}/${id}`, letter);
+    updateReceiver(id, receiverEdit) {
+        return axios.put(`${host}${receiver}/${id}`, receiverEdit);
     },
-    deleteLetter(id) {
+    deleteReceiver(id) {
         return axios.delete(`${host}${receiver}/${id}`);
     }
 };

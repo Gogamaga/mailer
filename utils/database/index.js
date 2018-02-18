@@ -28,6 +28,11 @@ module.exports = {
                 .toArray();
         });
     },
+    getOneReceiver: id => {
+        return connectDB().then(db => {
+            return db.collection(receivers).findOne({ _id: ObjectId(id) }, { fields: { _id: 0 } });
+        });
+    },
     deleteReceiver: id => {
         connectDB().then(db => {
             db
@@ -37,11 +42,8 @@ module.exports = {
         });
     },
     updateReceiver: (id, receiver) => {
-        connectDB().then(db => {
-            db
-                .collection(receivers)
-                .findOneAndUpdate({ _id: ObjectId(id) }, receiver)
-                .then(res => console.log(res));
+        return connectDB().then(db => {
+            return db.collection(receivers).update({ _id: ObjectId(id) }, receiver);
         });
     },
 

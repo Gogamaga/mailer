@@ -12,7 +12,6 @@ module.exports = {
     },
     getOneLetter: (req, res) => {
         const id = req.params.id;
-        console.log(id);
         dataBase.getOneLetter(id).then(result => {
             res.send(result);
         });

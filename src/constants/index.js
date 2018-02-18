@@ -31,6 +31,13 @@ export default {
         ],
         receivers: []
     },
+    newReceiver: () => {
+        return {
+            name: "",
+            email: "",
+            phone: ""
+        };
+    },
     url: {
         host: "http://localhost:3000/",
         letter: "letter",
