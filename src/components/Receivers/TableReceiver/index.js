@@ -7,7 +7,7 @@ export default class TableReceiver extends Component {
         super(props);
     }
     render() {
-        const { receivers, onEdit } = this.props;
+        const { receivers, onEdit, onDelete } = this.props;
         return (
             <table className="receiver-table">
                 <thead className="receiver-table__thead">
@@ -30,6 +30,7 @@ export default class TableReceiver extends Component {
                                 phone={phone}
                                 id={_id}
                                 onEdit={onEdit}
+                                onDelete={onDelete}
                             />
                         );
                     })}

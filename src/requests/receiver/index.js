@@ -10,8 +10,8 @@ export default {
     getOneReceiver(id) {
         return axios.get(`${host}${receiver}/${id}`);
     },
-    saveReceiver(receiver) {
-        return axios.post(`${host}${receiver}`, receiver);
+    saveReceiver(newReceiver) {
+        return axios.post(`${host}${receiver}`, newReceiver);
     },
     updateReceiver(id, receiverEdit) {
         return axios.put(`${host}${receiver}/${id}`, receiverEdit);

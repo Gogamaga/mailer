@@ -34,7 +34,7 @@ app.get("/receiver/:id", receiverRouter.getOneReceiver);
 app.post("/receiver", receiverRouter.saveReceiver);
 app.put("/receiver/:id", receiverRouter.updateReceiver);
 
-app.delete("/receiver", receiverRouter.deleteReceiver);
+app.delete("/receiver/:id", receiverRouter.deleteReceiver);
 
 app.post("/letter", letterRouter.saveLetter);
 app.get("/letter", letterRouter.getAllLetters);

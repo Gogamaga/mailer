@@ -21,6 +21,9 @@ module.exports = {
         });
     },
     deleteReceiver: (req, res) => {
-        dataBase.deleteReceiver(req.body.id);
+        const id = req.params.id;
+        dataBase.deleteReceiver(id).then(result => {
+            res.send(result);
+        });
     }
 };

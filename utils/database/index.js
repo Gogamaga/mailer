@@ -34,11 +34,8 @@ module.exports = {
         });
     },
     deleteReceiver: id => {
-        connectDB().then(db => {
-            db
-                .collection(receivers)
-                .findOneAndDelete({ _id: ObjectId(id) })
-                .then(res => console.log(res));
+        return connectDB().then(db => {
+            return db.collection(receivers).deleteOne({ _id: ObjectId(id) });
         });
     },
     updateReceiver: (id, receiver) => {

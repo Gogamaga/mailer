@@ -2,8 +2,10 @@ import React, { Component } from "react";
 import "./style.css";
 import Input from "../../input";
 import Button from "../../button";
+import Tooltip from "../../tooltip";
 import request from "../../../requests/receiver";
 import constants from "../../../constants";
+import utils from "../../../utils";
 
 export default class Receiver extends Component {
     constructor(props) {
@@ -13,11 +15,14 @@ export default class Receiver extends Component {
                 name: "",
                 email: "",
                 phone: ""
-            }
+            },
+            statusResponse: false,
+            tooltipText: null
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleEditReceiver = this.handleEditReceiver.bind(this);
         this.handleSaveReceiver = this.handleSaveReceiver.bind(this);
+        this.hideTooltip = utils.hideTooltip.bind(this);
     }
 
     componentDidMount() {
@@ -28,9 +33,14 @@ export default class Receiver extends Component {
     }
 
     render() {
-        const { name, email, phone } = this.state.receiver;
+        const { statusResponse, tooltipText, receiver: { name, email, phone } } = this.state;
         return (
             <div className="create-receiver">
+                <Tooltip
+                    className={statusResponse ? "tooltip tooltip_visible" : "tooltip tooltip_hide"}
+                >
+                    {tooltipText}
+                </Tooltip>
                 <label>
                     Name:
                     <Input value={name} name={"name"} onChange={this.handleChange} />
@@ -64,8 +74,18 @@ export default class Receiver extends Component {
     handleEditReceiver() {
         const { id } = this.props;
         request.updateReceiver(id, this.state.receiver).then(({ data }) => {
-            console.log(data);
+            this.setState(
+                { statusResponse: true, tooltipText: data.n ? "Edit Success" : "Data Base Error" },
+                this.hideTooltip({ statusResponse: false }, 3000)
+            );
         });
     }
-    handleSaveReceiver() {}
+    handleSaveReceiver() {
+        request.saveReceiver(this.state.receiver).then(({ data }) => {
+            this.setState(
+                { statusResponse: true, tooltipText: data.n ? "Save Success" : "Data Base Error" },
+                this.hideTooltip({ statusResponse: false }, 3000)
+            );
+        });
+    }
 }
