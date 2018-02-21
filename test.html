@@ -12,102 +12,94 @@
             padding: 0;
         }
 
-        .container-input-radio {
-            display: block;
+        .container-input-checkbox {
+            display: flex;
+            justify-content: center;
+            align-items: center;
             position: relative;
             width: 25px;
             height: 25px;
-            border-radius: 50%;
-            background-color: rgba(230, 230, 230, 0.959)
+            border-radius: 3px;
+            background-color: rgba(229, 226, 226, 0.959)
         }
 
-        .container-input-radio input {
+        .container-input-checkbox input {
+            position: absolute;
             width: 25px;
             height: 25px;
             opacity: 0;
         }
 
-
-
-        .container-input-radio input:checked+.checkmark .checkmark-circle {
-            border: 7.5px solid rgb(38, 147, 230);
-            transition: all .2s;
-            width: 10px;
-            height: 10px;
-        }
-
-        .container-input-radio input:hover+.checkmark .checkmark-circle {
-            border: 7.5px solid rgba(105, 186, 248, 0.363);
-            transition: all .2s;
-            width: 10px;
-            height: 10px;
-        }
-
-        .container-input-radio input:checked:hover+.checkmark .checkmark-circle {
-            border: 7.5px solid rgb(38, 147, 230);
-
-        }
-
         .checkmark {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 25px;
-            height: 25px;
-            border-radius: 50%;
-            background-color: rgb(228, 228, 228);
             display: flex;
+            border-radius: 3px;
+            width: 23px;
+            height: 23px;
+            background-color: rgb(38, 147, 230);
             justify-content: center;
             align-items: center;
-
+            position: relative;
+            opacity: 0;
+            transition: opacity 0.2s;
         }
 
-        .checkmark-circle {
-            width: 0px;
-            height: 0px;
-            background-color: #fff;
-            border-radius: 50%;
+        .checkmark-inside {
+            position: absolute;
+            display: block;
+            width: 15px;
+            height: 10px;
+            border-left: 2px solid #ffffff;
+            border-bottom: 2px solid #ffffff;
+            transform: rotate(-45deg);
+            bottom: 8px;
+        }
+
+
+        .container-input-checkbox input:checked+.checkmark {
+            opacity: 1;
+        }
+
+        .container-input-checkbox .checkmark:hover {
+            opacity: 0.2;
         }
     </style>
 </head>
 
 
 <body>
-    <input type="text" value="" class="valute">
-    <input type="text" value="" class="count">
-    <span class="" res></span>
-    <button class="button">start</button>
+    <label class="container-input-checkbox">
+        <input type="checkbox" value="">
+        <span class="checkmark">
+            <span class="checkmark-inside"></span>
+        </span>
+    </label>
 
-    <select name="" id="qq">
-        <option value="usd"></option>
-        <option value="euro"></option>
-        <option value="rub"></option>
-    </select>
+
     <script>    
-        var select = document.querySelector('#qq')
+        // var select = document.querySelector('#qq')
 
 
-        function foreach(arr, callback) {
-            for (var i = 0; i < arr.length; i++) {
-                callback(arr[i])
-            }
-        }
+        // function foreach(arr, callback) {
+        //     for (var i = 0; i < arr.length; i++) {
+        //         callback(arr[i])
+        //     }
+        // }
 
 
-        function map(array, calback) {
-            const newArray = []
-            for (var i = 0; i < array.length; i++) {
-                const newElem = calback(array[i]);
-                newArray.push(newElem)
-            }
-            return newArray
-        }
+        // function map(array, calback) {
+        //     const newArray = []
+        //     for (var i = 0; i < array.length; i++) {
+        //         const newElem = calback(array[i]);
+        //         newArray.push(newElem)
+        //     }
+        //     return newArray
+        // }
 
-        const newArray = map([1, 4, 2, 7, 1], el => el + 1);
-        console.log([1, 4, 2, 7, 1, 2, 6, -1].sort((a, b) => {
-            console.log(a, b)
-            return a - b;
-        }))
+        // const newArray = map([1, 4, 2, 7, 1], el => el + 1);
+        // console.log([1, 4, 2, 7, 1, 2, 6, -1].sort((a, b) => {
+        //     console.log(a, b)
+        //     return a - b;
+        // }))
 
     </script>
 

@@ -1,22 +1,25 @@
 import React, { Component } from "react";
-import TableReceiverRow from "../TableReceiversRow";
 import "./style.css";
+import InputCheckbox from "../../inputCheckbox";
+import TableReceiverRow from "../../Receivers/TableReceiversRow";
 
-export default class TableReceiver extends Component {
+export default class Receivers extends Component {
     constructor(props) {
         super(props);
     }
+
     render() {
-        const { receivers, onEdit, onDelete } = this.props;
+        const { receivers, onChange, letterReceivers } = this.props;
         return (
             <table className="receiver-table">
                 <thead className="receiver-table__thead">
                     <tr>
+                        <th>
+                            <InputCheckbox />
+                        </th>
                         <th>Name</th>
                         <th>e-mail</th>
                         <th>Phone</th>
-                        <th>Edit</th>
-                        <th>Delete</th>
                     </tr>
                 </thead>
 
@@ -25,14 +28,14 @@ export default class TableReceiver extends Component {
                         return (
                             <TableReceiverRow
                                 key={_id}
-                                deleteButton={true}
-                                editButton={true}
+                                checkbox={true}
                                 name={name}
                                 email={email}
                                 phone={phone}
                                 id={_id}
-                                onEdit={onEdit}
-                                onDelete={onDelete}
+                                onChange={onChange}
+                                valueCheckbox={email}
+                                checked={letterReceivers.some(receiver => receiver === email)}
                             />
                         );
                     })}

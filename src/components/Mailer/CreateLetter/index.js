@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import request from "../../../requests";
+import requestReceiver from "../../../requests/receiver";
 import constants from "../../../constants";
 import "./style.css";
+import Receivers from "../Receivers";
 import Input from "../../input";
 import Button from "../../button";
 import Letter from "./Letter";
@@ -13,10 +15,12 @@ export default class CreateLetter extends Component {
         super(props);
         this.state = {
             letter: {},
+            receivers: [],
             statusResponse: false,
             statusDataBase: false,
             disabledButton: false,
-            tooltipText: null
+            tooltipText: null,
+            visibilityBlock: false
         };
         this.handleChange = this.handleChange.bind(this);
         this.addLetterItem = this.addLetterItem.bind(this);
@@ -24,88 +28,119 @@ export default class CreateLetter extends Component {
         this.handleEditLetter = this.handleEditLetter.bind(this);
         this.hideTooltip = utils.hideTooltip.bind(this);
         this.handlerDeleteLetterItem = this.handlerDeleteLetterItem.bind(this);
+        this.handlerVisibile = this.handlerVisibile.bind(this);
+        this.handleChangeCheckbox = this.handleChangeCheckbox.bind(this);
     }
     componentDidMount() {
         this.props.id
             ? request.getOneLetter(this.props.id).then(({ data }) => {
-                  this.setState({ letter: data });
+                  const letter = data;
+                  requestReceiver.getAllReceiver().then(({ data }) => {
+                      const receivers = data;
+                      this.setState({ receivers, letter });
+                  });
               })
             : this.setState({ letter: constants.newLetter });
     }
     render() {
-        const { letter, statusResponse, statusDataBase, disabledButton, tooltipText } = this.state;
+        console.log("createletter");
+        const {
+            letter,
+            statusResponse,
+            statusDataBase,
+            disabledButton,
+            tooltipText,
+            receivers,
+            visibilityBlock
+        } = this.state;
         return (
-            <div className="create-letter">
-                <Tooltip
-                    className={statusResponse ? "tooltip tooltip_visible" : "tooltip tooltip_hide"}
+            <div className="create-letter-wrap">
+                <Button onClick={this.handlerVisibile} />
+                <div
+                    className={
+                        !visibilityBlock ? "create-letter create-letter_hidden" : "create-letter"
+                    }
                 >
-                    {tooltipText}
-                </Tooltip>
-                <div className="create-letter__info">
-                    <label>
-                        Letter Name<Input
-                            value={
-                                this.state.letter.name !== undefined ? this.state.letter.name : ""
-                            }
-                            onChange={this.handleChange}
-                            name="name"
-                        />
-                    </label>
-                    <label>
-                        Subject<Input
-                            value={
-                                this.state.letter.subject !== undefined
-                                    ? this.state.letter.subject
-                                    : ""
-                            }
-                            onChange={this.handleChange}
-                            name="subject"
-                        />
-                    </label>
+                    <Receivers receivers={receivers} letterReceivers={letter.receivers} onChange={this.handleChangeCheckbox} />
                 </div>
-                <hr />
-                <div className="">
-                    {letter.letterItem &&
-                        letter.letterItem.map((item, index, array) => {
-                            const {
-                                id,
-                                itemName,
-                                hrefItem,
-                                imageItem,
-                                brandName,
-                                imageBrand,
-                                price,
-                                count,
-                                units
-                            } = item;
-                            return (
-                                <Letter
-                                    key={id}
-                                    id={id}
-                                    itemName={itemName}
-                                    hrefItem={hrefItem}
-                                    imageItem={imageItem}
-                                    brandName={brandName}
-                                    imageBrand={imageBrand}
-                                    price={price}
-                                    count={count}
-                                    onChange={this.handleChange}
-                                    units={units}
-                                    array={array}
-                                    handlerDeleteLetterItem={this.handlerDeleteLetterItem}
-                                />
-                            );
-                        })}
-                </div>
-                <div className="create-letter__button-group">
-                    {this.props.id ? (
-                        <Button onClick={this.handleEditLetter}>Edit</Button>
-                    ) : (
-                        <Button onClick={this.handleSaveLetter} disabled={disabledButton}>
-                            Save
-                        </Button>
-                    )}
-                    <Button onClick={this.addLetterItem}>Add Item</Button>
+                <div
+                    className={
+                        visibilityBlock ? "create-letter create-letter_hidden" : "create-letter"
+                    }
+                >
+                    <Tooltip
+                        className={
+                            statusResponse ? "tooltip tooltip_visible" : "tooltip tooltip_hide"
+                        }
+                    >
+                        {tooltipText}
+                    </Tooltip>
+                    <div className="create-letter__info">
+                        <label>
+                            Letter Name<Input
+                                value={
+                                    this.state.letter.name !== undefined
+                                        ? this.state.letter.name
+                                        : ""
+                                }
+                                onChange={this.handleChange}
+                                name="name"
+                            />
+                        </label>
+                        <label>
+                            Subject<Input
+                                value={
+                                    this.state.letter.subject !== undefined
+                                        ? this.state.letter.subject
+                                        : ""
+                                }
+                                onChange={this.handleChange}
+                                name="subject"
+                            />
+                        </label>
+                    </div>
+                    <hr />
+                    <div className="">
+                        {letter.letterItem &&
+                            letter.letterItem.map((item, index, array) => {
+                                const {
+                                    id,
+                                    itemName,
+                                    hrefItem,
+                                    imageItem,
+                                    brandName,
+                                    imageBrand,
+                                    price,
+                                    count,
+                                    units
+                                } = item;
+                                return (
+                                    <Letter
+                                        key={id}
+                                        id={id}
+                                        itemName={itemName}
+                                        hrefItem={hrefItem}
+                                        imageItem={imageItem}
+                                        brandName={brandName}
+                                        imageBrand={imageBrand}
+                                        price={price}
+                                        count={count}
+                                        onChange={this.handleChange}
+                                        units={units}
+                                        array={array}
+                                        handlerDeleteLetterItem={this.handlerDeleteLetterItem}
+                                    />
+                                );
+                            })}
+                    </div>
+                    <div className="create-letter__button-group">
+                        {this.props.id ? (
+                            <Button onClick={this.handleEditLetter}>Edit</Button>
+                        ) : (
+                            <Button onClick={this.handleSaveLetter}>Save</Button>
+                        )}
+                        <Button onClick={this.addLetterItem}>Add Item</Button>
+                    </div>
                 </div>
             </div>
         );
@@ -186,5 +221,20 @@ export default class CreateLetter extends Component {
         } else {
             console.log("bad");
         }
+    }
+    handlerVisibile() {
+        this.setState(({ visibilityBlock }) => {
+            return { visibilityBlock: !visibilityBlock };
+        });
+    }
+    handleChangeCheckbox({ target }) {
+        const allCheckboxes = target.closest("tbody").querySelectorAll("input");
+        const receiverList = [...allCheckboxes]
+            .filter(checkbox => checkbox.checked)
+            .map(checkbox => checkbox.value);
+        this.setState(({ letter }) => {
+            letter.receivers = receiverList;
+            return { letter };
+        });
     }
 }

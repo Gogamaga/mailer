@@ -1,10 +1,12 @@
 import React, { Component } from "react";
 import TableLetter from "./TableLetter";
 import "./style.css";
-import request from "../../requests";
+import requestLetter from "../../requests";
+
 import Button from "../button";
 import CreateLetter from "./CreateLetter";
 import Tooltip from "../tooltip";
+import Receivers from "./Receivers";
 
 export default class Mailer extends Component {
     constructor(props) {
@@ -23,8 +25,8 @@ export default class Mailer extends Component {
         this.handleCreateLetter = this.handleCreateLetter.bind(this);
     }
     componentDidMount() {
-        request.getAllLetters().then(({ data }) => {
-            this.setState({ letters: [...data] });
+        requestLetter.getAllLetters().then(({ data }) => {
+            this.setState({ letters: data });
         });
     }
     render() {
