@@ -1,5 +1,7 @@
 const moment = require("moment");
 const dataBase = require("../utils/database/index");
+const pug = require("pug");
+const mailSender = require("../utils/mailSender/index.js");
 
 module.exports = {
     saveLetter: (req, res) => {
@@ -30,5 +32,13 @@ module.exports = {
             .deleteLetter(id)
             .then(result => res.send(result))
             .catch(result => console.log(result));
+    },
+    sendLetter: (req, res) => {
+        const id = req.params.id;
+        dataBase.getOneLetter(id).then(result => {
+            const fn = pug.compileFile("./mail.pug");
+            const htmlLetter = fn({ letterItem: result.letterItem });
+            mailSender(result, htmlLetter);
+        });
     }
 };

@@ -1,10 +1,9 @@
 const nodemailer = require("nodemailer");
 const configSendMail = require("../../config/index");
-const fs = require("fs");
 
 const { service, user, pass } = configSendMail.mailSender;
 
-const sendMail = (receiversList, htmlText) => {
+const sendMail = ({ receivers, name, subject }, htmlText) => {
     let transporter = nodemailer.createTransport({
         service,
         auth: {
@@ -13,12 +12,12 @@ const sendMail = (receiversList, htmlText) => {
         }
     });
 
-    receiversList.forEach(element => {
+    receivers.forEach(element => {
         let mailOptions = {
             from: "bj", // sender address
             to: element, // list of receivers
-            subject: "Hello ✔", // Subject line
-            text: "Hello world?", // plain text body
+            subject: subject, // Subject line
+            text: name, // plain text body
             html: htmlText // html body
         };
         transporter.sendMail(mailOptions, (error, info) => {
