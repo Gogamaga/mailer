@@ -7,6 +7,7 @@ export default function TableReceiverRow({
     checkbox = false,
     deleteButton = false,
     editButton = false,
+    dateCreate = false,
     name,
     email,
     date,
@@ -28,7 +29,7 @@ export default function TableReceiverRow({
             <th>{name}</th>
             <th>{email}</th>
             <th>{phone}</th>
-            {/* <th>{date}</th> */}
+            {dateCreate && <th>{date}</th>}
             {editButton && (
                 <th>
                     <Button onClick={onEdit} backgroundColor={"#28a745"}>

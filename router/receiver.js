@@ -1,8 +1,11 @@
 const dataBase = require("../utils/database/index");
+const moment = require("moment");
 
 module.exports = {
     saveReceiver: (req, res) => {
-        dataBase.saveReceiver(req.body).then(result => res.send(result));
+        const receiver = req.body;
+        receiver.dateCreate = moment().format("YYYY-MM-DD HH:mm:ss");
+        dataBase.saveReceiver(receiver).then(result => res.send(result));
     },
     getAllReceiver: (req, res) => {
         dataBase.getAllReceivers().then(result => res.send(result));

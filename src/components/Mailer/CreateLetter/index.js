@@ -30,6 +30,7 @@ export default class CreateLetter extends Component {
         this.handlerDeleteLetterItem = this.handlerDeleteLetterItem.bind(this);
         this.handlerVisibile = this.handlerVisibile.bind(this);
         this.handleChangeCheckbox = this.handleChangeCheckbox.bind(this);
+        this.handleCheckedAllCheckbox = this.handleCheckedAllCheckbox.bind(this);
     }
     componentDidMount() {
         this.props.id
@@ -40,10 +41,12 @@ export default class CreateLetter extends Component {
                       this.setState({ receivers, letter });
                   });
               })
-            : this.setState({ letter: constants.newLetter });
+            : requestReceiver.getAllReceiver().then(({ data }) => {
+                  const receivers = data;
+                  this.setState({ receivers, letter: constants.newLetter });
+              });
     }
     render() {
-        console.log("createletter");
         const {
             letter,
             statusResponse,
@@ -61,7 +64,12 @@ export default class CreateLetter extends Component {
                         !visibilityBlock ? "create-letter create-letter_hidden" : "create-letter"
                     }
                 >
-                    <Receivers receivers={receivers} letterReceivers={letter.receivers} onChange={this.handleChangeCheckbox} />
+                    <Receivers
+                        receivers={receivers}
+                        letterReceivers={letter.receivers}
+                        onChange={this.handleChangeCheckbox}
+                        checkedAll={this.handleCheckedAllCheckbox}
+                    />
                 </div>
                 <div
                     className={
@@ -234,6 +242,13 @@ export default class CreateLetter extends Component {
             .map(checkbox => checkbox.value);
         this.setState(({ letter }) => {
             letter.receivers = receiverList;
+            return { letter };
+        });
+    }
+    handleCheckedAllCheckbox({ target }) {
+        const allreceivers = this.state.receivers.map(receiver => receiver.email);
+        this.setState(({ letter }) => {
+            letter.receivers = target.checked ? allreceivers : [];
             return { letter };
         });
     }

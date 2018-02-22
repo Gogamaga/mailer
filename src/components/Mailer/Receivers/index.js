@@ -6,16 +6,26 @@ import TableReceiverRow from "../../Receivers/TableReceiversRow";
 export default class Receivers extends Component {
     constructor(props) {
         super(props);
+
+        this.state = {
+            checkedAll: false
+        };
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            checkedAll: nextProps.receivers.length === nextProps.letterReceivers.length
+        });
     }
 
     render() {
-        const { receivers, onChange, letterReceivers } = this.props;
+        const { receivers, onChange, letterReceivers, checkedAll } = this.props;
         return (
             <table className="receiver-table">
                 <thead className="receiver-table__thead">
                     <tr>
                         <th>
-                            <InputCheckbox />
+                            <InputCheckbox onChange={checkedAll} checked={this.state.checkedAll} />
                         </th>
                         <th>Name</th>
                         <th>e-mail</th>

@@ -41,8 +41,27 @@
             position: relative;
             opacity: 0;
             transition: opacity 0.2s;
-        }
-
+        } //- - var letterItem = #{letterItem}
+        //- - each item in letterItem
+        //-   a(target="_blank" href=item.hrefItem style="display: block;margin-top: 10px")
+        //-       div(style="width: 90%; float: left;margin-left: 5px;")
+        //-           h3(style="display: block; background: #c01027; float:left; color: #fff; margin-bottom: 0;padding: 5px;")= item.itemName
+        //-       div(style="width: 95%;margin-left: 5px;")
+        //-           div(style="width: 20%; float: left;")
+        //-               div()
+        //-                   div()
+        //-                       img(style="max-width: 95%;" src=item.imageBrand alt="")
+        //-           div(style="width: 77%; float: left;")
+        //-               p(style="max-width: 100%; margin: 0;")
+        //-                   img(style="max-width:95%;" src= item.imageItem alt="")
+        //-       div(style="width: 85%; padding: 15px;float:left; background:#eddcc2; color:black;")
+        //-           p(style="margin: 0;")= item.brandName
+        //-               span(style="font-size: 18px;") Лот:
+        //-                  b()= item.count  + item.units + '.'
+        //-               span(style="float: right; font-size: 18px;") Ціна:
+        //-                   b()= item.price + '€/' + item.units + '.'
+        //-       div()
+        //-           img(src="http://munhen-stock.com.ua/bundles/app/css/images/item_shadow.png" alt="" style="width:90%")
         .checkmark-inside {
             position: absolute;
             display: block;
@@ -65,42 +84,126 @@
     </style>
 </head>
 
-
-<body>
-    <label class="container-input-checkbox">
-        <input type="checkbox" value="">
-        <span class="checkmark">
-            <span class="checkmark-inside"></span>
-        </span>
-    </label>
-
-
-    <script>    
-        // var select = document.querySelector('#qq')
-
-
-        // function foreach(arr, callback) {
-        //     for (var i = 0; i < arr.length; i++) {
-        //         callback(arr[i])
-        //     }
-        // }
-
-
-        // function map(array, calback) {
-        //     const newArray = []
-        //     for (var i = 0; i < array.length; i++) {
-        //         const newElem = calback(array[i]);
-        //         newArray.push(newElem)
-        //     }
-        //     return newArray
-        // }
-
-        // const newArray = map([1, 4, 2, 7, 1], el => el + 1);
-        // console.log([1, 4, 2, 7, 1, 2, 6, -1].sort((a, b) => {
-        //     console.log(a, b)
-        //     return a - b;
-        // }))
-
-    </script>
+<body style="padding: 15px 15px; width: 620px;">
+    <div>
+        <div style="width: 40%;">
+            <img src="http://munhen-stock.com.ua/bundles/app/img/munhen_logo.png" alt="" style="max-width: 99%; float: left;" />
+        </div>
+        <div style="width: 60%; float: left;text-align: center; ">
+            <div style="width: 50%; float: left; font-size: 1em">
+                <a href="tel:+380677402920" style="text-decoration: none;color: black; font-size: 12px;">380677402920</a>
+                <br/>
+                <a href="tel:+380503702638" style="text-decoration: none;color: black; font-size: 12px;">380503702638</a>
+                <br/>
+                <a href="tel:+380971345578" style="text-decoration: none;color: black; font-size: 12px;">380971345578</a>
+            </div>
+            <div style="width: 50%; float: left;">
+                <a href="mailto:tek77@ukr.net" target="_top" style="text-decoration: none; color: black; font-size: 12px;">tek77@ukr.net</a>
+                <br/>
+                <a href="mailto:prin@ukr.net" target="_top" style="text-decoration: none; color: black; font-size: 12px;">prin@ukr.net</a>
+            </div>
+        </div>
+    </div>
+    <table style="width: 92%;border-spacing: 0px;">
+        <tr style="background: #c01027">
+            <td style="width: 20%;text-align: center; height: 25px; font-size: 14px;">
+                <a target="_blank" href="http://munhen-stock.com.ua/zhinochii_c" style="text-decoration: none; color: #fff;">
+                    <p style="margin: 0px;">Жіночий</p>
+                </a>
+            </td>
+            <td style="width: 20%;  color: #fff;text-align: center; height: 25px; font-size: 14px;">
+                <a target="_blank" href="http://munhen-stock.com.ua/cholovichii_c" style="text-decoration: none; color: #fff;">
+                    <p p="p" style="margin: 0px;">Чоловічий</p>
+                </a>
+            </td>
+            <td style="width: 20%;  color: #fff;text-align: center; height: 25px; font-size: 14px;">
+                <a target="_blank" href="http://munhen-stock.com.ua/ditiachii_c" style="text-decoration: none; color: #fff;">
+                    <p p="p" style="margin: 0px;">Дитячий</p>
+                </a>
+            </td>
+            <td style="width: 20%;  color: #fff;text-align: center; height: 25px; font-size: 14px;">
+                <a target="_blank" href="http://munhen-stock.com.ua/vzuttia_c" style="text-decoration: none; color: #fff;">
+                    <p p="p" style="margin: 0px;">Взуття</p>
+                </a>
+            </td>
+            <td style="width: 20%;  color: #fff;text-align: center; height: 25px; font-size: 14px;">
+                <a target="_blank" href="http://munhen-stock.com.ua/aksiesuari_c" style="text-decoration: none; color: #fff;">
+                    <p p="p" style="margin: 0px;">Аксесуари</p>
+                </a>
+            </td>
+        </tr>
+    </table>
+    <a target="_blank" href="http://munhen-stock.com.ua/sklad-zaminnik-italiia-1" style="display: block;margin-top: 10px">
+        <div style="width: 90%; float: left;margin-left: 5px;">
+            <h3 style="display: block; background: #c01027; float:left; color: #fff; margin-bottom: 0;padding: 5px;">Гаманці жіночі</h3>
+        </div>
+        <div style="width: 95%;margin-left: 5px;">
+            <div style="width: 20%; float: left;">
+                <div>
+                    <div>
+                        <img style="max-width: 95%;" src="http://munhen-stock.com.ua/uploads/media/brand/0001/22/thumb_21547_brand_default.jpeg"
+                            alt="" />
+                    </div>
+                </div>
+            </div>
+            <div style="width: 77%; float: left;">
+                <p style="max-width: 100%; margin: 0;">
+                    <img style="max-width:95%;" src="http://munhen-stock.com.ua/uploads/media/category/0001/26/thumb_25723_category_default.jpeg"
+                        alt="" />
+                </p>
+            </div>
+        </div>
+        <div style="width: 85%; padding: 15px;float:left; background:#eddcc2; color:black;">
+            <p style="margin: 0;">Guess
+                <span style="font-size: 18px;">Лот:
+                    <b>10кг.</b>
+                </span>
+                <span style="float: right; font-size: 18px;">Ціна:
+                    <b>12€/кг.</b>
+                </span>
+            </p>
+        </div>
+        <div>
+            <img src="http://munhen-stock.com.ua/bundles/app/css/images/item_shadow.png" alt="" style="width:90%" />
+        </div>
+    </a>
+    <a target="_blank" href="http://munhen-stock.com.ua/sklad-zaminnik-italiia-1" style="display: block;margin-top: 10px">
+        <div style="width: 90%; float: left;margin-left: 5px;">
+            <h3 style="display: block; background: #c01027; float:left; color: #fff; margin-bottom: 0;padding: 5px;">Гаманці жіночі</h3>
+        </div>
+        <div style="width: 95%;margin-left: 5px;">
+            <div style="width: 20%; float: left;">
+                <div>
+                    <div>
+                        <img style="max-width: 95%;" src="http://munhen-stock.com.ua/uploads/media/brand/0001/22/thumb_21547_brand_default.jpeg"
+                            alt="" />
+                    </div>
+                </div>
+            </div>
+            <div style="width: 77%; float: left;">
+                <p style="max-width: 100%; margin: 0;">
+                    <img style="max-width:95%;" src="http://munhen-stock.com.ua/uploads/media/category/0001/26/thumb_25723_category_default.jpeg"
+                        alt="" />
+                </p>
+            </div>
+        </div>
+        <div style="width: 85%; padding: 15px;float:left; background:#eddcc2; color:black;">
+            <p style="margin: 0;">Mustang
+                <span style="font-size: 18px;">Лот:
+                    <b>10кг.</b>
+                </span>
+                <span style="float: right; font-size: 18px;">Ціна:
+                    <b>12€/кг.</b>
+                </span>
+            </p>
+        </div>
+        <div>
+            <img src="http://munhen-stock.com.ua/bundles/app/css/images/item_shadow.png" alt="" style="width:90%" />
+        </div>
+    </a>
+    <div style="width: 92%; background:#c01027; height:21px; text-align: center;">
+        <p>© 2017 МЮНХЕН. Всі права захищено.</p>
+    </div>
+</body>
 
 </html>

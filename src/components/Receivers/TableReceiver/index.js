@@ -15,18 +15,21 @@ export default class TableReceiver extends Component {
                         <th>Name</th>
                         <th>e-mail</th>
                         <th>Phone</th>
+                        <th>Date</th>
                         <th>Edit</th>
                         <th>Delete</th>
                     </tr>
                 </thead>
 
                 <tbody>
-                    {receivers.map(({ name, email, phone, _id }) => {
+                    {receivers.map(({ name, email, phone, _id, dateCreate }) => {
                         return (
                             <TableReceiverRow
                                 key={_id}
                                 deleteButton={true}
                                 editButton={true}
+                                dateCreate={true}
+                                date={dateCreate}
                                 name={name}
                                 email={email}
                                 phone={phone}

@@ -2,11 +2,11 @@ import React, { Component } from "react";
 import TableLetter from "./TableLetter";
 import "./style.css";
 import requestLetter from "../../requests";
-
 import Button from "../button";
 import CreateLetter from "./CreateLetter";
 import Tooltip from "../tooltip";
 import Receivers from "./Receivers";
+import utils from "../../utils";
 
 export default class Mailer extends Component {
     constructor(props) {
@@ -23,11 +23,18 @@ export default class Mailer extends Component {
         this.handlerEdit = this.handlerEdit.bind(this);
         this.handlerDelete = this.handlerDelete.bind(this);
         this.handleCreateLetter = this.handleCreateLetter.bind(this);
+        this.hideTooltip = utils.hideTooltip.bind(this);
     }
     componentDidMount() {
-        requestLetter.getAllLetters().then(({ data }) => {
-            this.setState({ letters: data });
-        });
+        requestLetter
+            .getAllLetters()
+            .then(({ data }) => {
+                this.setState({ letters: data });
+            })
+            .catch(e => (e.message ? false : console.log(e)));
+    }
+    componentWillUnmount() {
+        requestLetter.cancel(true);
     }
     render() {
         const { activeLink, onClick } = this.props;
@@ -77,21 +84,14 @@ export default class Mailer extends Component {
     }
     handlerDelete({ target }) {
         const id = target.closest("tr").dataset.id;
-        request.deleteLetter(id).then(({ data }) => {
-            this.setState(
-                prevState => {
-                    return {
-                        statusResponse: true,
-                        statusDataBase: data.n,
-                        letters: prevState.letters.filter(letter => letter._id !== id)
-                    };
-                },
-                () => {
-                    setTimeout(() => {
-                        this.setState({ statusResponse: false });
-                    }, 2000);
-                }
-            );
+        requestLetter.deleteLetter(id).then(({ data }) => {
+            this.setState(prevState => {
+                return {
+                    statusResponse: true,
+                    statusDataBase: data.n,
+                    letters: prevState.letters.filter(letter => letter._id !== id)
+                };
+            }, this.hideTooltip({ statusResponse: false }, 3000));
         });
     }
     handleCreateLetter() {

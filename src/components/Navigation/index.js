@@ -27,14 +27,14 @@ export default class Navigator extends Component {
                     <a
                         href="#"
                         className={
-                            activeLink === "letter"
+                            activeLink === "viber"
                                 ? "navigator-list__item-link active"
                                 : "navigator-list__item-link"
                         }
                         onClick={onClick}
-                        name="letter"
+                        name="viber"
                     >
-                        Letter
+                        Viber
                     </a>
                 </li>
                 <li className="navigator-list__item">

@@ -21,7 +21,7 @@ body(style="padding: 15px 15px; width: 620px;")
                     p(style="margin: 0px;") Жіночий
             td(style="width: 20%;  color: #fff;text-align: center; height: 25px; font-size: 14px;")
                 a(target="_blank" href="http://munhen-stock.com.ua/cholovichii_c" style="text-decoration: none; color: #fff;")
-                    p(p style="margin: 0px;") #{name}
+                    p(p style="margin: 0px;") Чоловічий
             td(style="width: 20%;  color: #fff;text-align: center; height: 25px; font-size: 14px;")
                 a(target="_blank" href="http://munhen-stock.com.ua/ditiachii_c" style="text-decoration: none; color: #fff;")
                     p(p style="margin: 0px;") Дитячий
@@ -31,10 +31,32 @@ body(style="padding: 15px 15px; width: 620px;")
             td(style="width: 20%;  color: #fff;text-align: center; height: 25px; font-size: 14px;")
                 a(target="_blank" href="http://munhen-stock.com.ua/aksiesuari_c" style="text-decoration: none; color: #fff;")
                     p(p style="margin: 0px;") Аксесуари
+    each item, i in letterItem
+  
+        a(target="_blank" href=item.hrefItem style="display: block;margin-top: 10px")
+            div(style="width: 90%; float: left;margin-left: 5px;")
+                h3(style="display: block; background: #c01027; float:left; color: #fff; margin-bottom: 0;padding: 5px;")= item.itemName
+            div(style="width: 95%;margin-left: 5px;")
+                div(style="width: 20%; float: left;")
+                    div()
+                        div()
+                            img(style="max-width: 95%;" src=item.imageBrand alt="")
+                div(style="width: 77%; float: left;")
+                    p(style="max-width: 100%; margin: 0;")
+                        img(style="max-width:95%;" src= item.imageItem alt="")
+            div(style="width: 85%; padding: 15px;float:left; background:#eddcc2; color:black;")
+                p(style="margin: 0; font-size: 16px;")= item.brandName+" "
+                    span(style="font-size: 18px;") Лот:
+                         b()= item.count  + item.units + '.'
+                    span(style="float: right; font-size: 18px;") Ціна:
+                        b()= item.price + '€/' + item.units + '.'
+            div()
+                img(src="http://munhen-stock.com.ua/bundles/app/css/images/item_shadow.png" alt="" style="width:90%")
+    
+    div(style="width: 92%; background:#c01027; height:21px; text-align: center;")
+        p() © 2018 МЮНХЕН. Всі права захищено.
 
-    a(target="_blank" href="http://munhen-stock.com.ua/v-odnomu-loti-85od-aksiesuari-10-11od-c-a-topolino-wheat-nimiechchina-daniia")
-        div(style="width: 90%; float: left;margin-left: 5px;")
-            h3(style="display: block; background: #c01027; float:left; color: #fff; margin-bottom: 0;padding: 5px;")
+
     
     
     

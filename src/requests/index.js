@@ -4,10 +4,16 @@ const url = {
     letter: "letter",
     receiver: "receiver"
 };
-
-export default {
+const CancelToken = axios.CancelToken;
+let cancel = null;
+const requestLetter = {
+    cancel: cancel,
     getAllLetters() {
-        return axios.get(`${url.host}${url.letter}`);
+        return axios.get(`${url.host}${url.letter}`, {
+            cancelToken: new CancelToken(function executor(c) {
+                requestLetter.cancel = c;
+            })
+        });
     },
     getOneLetter(id) {
         return axios.get(`${url.host}${url.letter}/${id}`);
@@ -22,3 +28,4 @@ export default {
         return axios.delete(`${url.host}${url.letter}/${id}`);
     }
 };
+export default requestLetter;
