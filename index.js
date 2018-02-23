@@ -5,6 +5,7 @@ const receiverRouter = require("./router/receiver");
 const letterRouter = require("./router/letter");
 const cors = require("cors");
 const app = express();
+const db = require("./utils/database/index");
 
 app.use(bodyParser.json());
 app.use(cors({ origin: "http://localhost:8080" }));

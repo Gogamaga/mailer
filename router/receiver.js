@@ -29,4 +29,20 @@ module.exports = {
             res.send(result);
         });
     }
+    // saveR(arr) {
+    //     const newArr = arr.map(receiver => {
+    //         delete receiver.id;
+    //         delete receiver.active;
+
+    //         delete receiver.createdAt;
+    //         delete receiver.updatedAt;
+    //         receiver.dateCreate = moment().format("YYYY-MM-DD HH:mm:ss");
+    //         receiver.email = receiver.mail;
+    //         delete receiver.mail;
+    //         return receiver;
+    //     });
+    //     newArr.forEach(receiver => {
+    //         dataBase.saveReceiver(receiver).then(result => console.log(result.ops));
+    //     });
+    // }
 };
