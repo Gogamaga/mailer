@@ -8,6 +8,7 @@ import Input from "../../input";
 import Button from "../../button";
 import Letter from "./Letter";
 import Tooltip from "../../tooltip";
+import ProgressBar from "../../progressBar";
 import utils from "../../../utils";
 
 export default class CreateLetter extends Component {
@@ -17,12 +18,14 @@ export default class CreateLetter extends Component {
             letter: {},
             receivers: [],
             statusResponse: false,
+            xhrStatus: false,
             statusDataBase: false,
             disabledButton: false,
             tooltipText: null,
             visibilityBlock: false
         };
         this.handleChange = this.handleChange.bind(this);
+        this.handleChangeInputRadio = this.handleChangeInputRadio.bind(this);
         this.addLetterItem = this.addLetterItem.bind(this);
         this.handleSaveLetter = this.handleSaveLetter.bind(this);
         this.handleEditLetter = this.handleEditLetter.bind(this);
@@ -38,7 +41,7 @@ export default class CreateLetter extends Component {
                   const letter = data;
                   requestReceiver.getAllReceiver().then(({ data }) => {
                       const receivers = data;
-                      this.setState({ receivers, letter });
+                      this.setState({ receivers, letter, xhrStatus: true });
                   });
               })
             : requestReceiver.getAllReceiver().then(({ data }) => {
@@ -54,22 +57,26 @@ export default class CreateLetter extends Component {
             disabledButton,
             tooltipText,
             receivers,
-            visibilityBlock
+            visibilityBlock,
+            xhrStatus
         } = this.state;
         return (
             <div className="create-letter-wrap">
                 <Button onClick={this.handlerVisibile} />
+                {/* <ProgressBar/> */}
                 <div
                     className={
                         !visibilityBlock ? "create-letter create-letter_hidden" : "create-letter"
                     }
                 >
-                    <Receivers
-                        receivers={receivers}
-                        letterReceivers={letter.receivers}
-                        onChange={this.handleChangeCheckbox}
-                        checkedAll={this.handleCheckedAllCheckbox}
-                    />
+                    {xhrStatus && (
+                        <Receivers
+                            receivers={receivers}
+                            letterReceivers={letter.receivers}
+                            onChange={this.handleChangeCheckbox}
+                            checkedAll={this.handleCheckedAllCheckbox}
+                        />
+                    )}
                 </div>
                 <div
                     className={
@@ -110,6 +117,7 @@ export default class CreateLetter extends Component {
                     <hr />
                     <div className="">
                         {letter.letterItem &&
+                            xhrStatus &&
                             letter.letterItem.map((item, index, array) => {
                                 const {
                                     id,
@@ -134,6 +142,7 @@ export default class CreateLetter extends Component {
                                         price={price}
                                         count={count}
                                         onChange={this.handleChange}
+                                        onChangeInputRadio={this.handleChangeInputRadio}
                                         units={units}
                                         array={array}
                                         handlerDeleteLetterItem={this.handlerDeleteLetterItem}
@@ -154,7 +163,7 @@ export default class CreateLetter extends Component {
         );
     }
     handleChange({ target }) {
-        const value = target.value.trim();
+        const value = target.value;
         const name = target.name;
         this.setState(({ letter }) => {
             if (letter[name] !== undefined) {
@@ -173,6 +182,20 @@ export default class CreateLetter extends Component {
                 const newState = letter;
                 return { letter: newState };
             }
+        });
+    }
+    handleChangeInputRadio({ target }) {
+        const value = target.value;
+        const name = target.name;
+        this.setState(({ letter }) => {
+            const newLetterItem = letter.letterItem.map(item => {
+                if (item.id === name) {
+                    item.units = value;
+                }
+                return item;
+            });
+            letter.letterItem = [...newLetterItem];
+            return { letter: letter };
         });
     }
     addLetterItem() {

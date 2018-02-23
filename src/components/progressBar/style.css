@@ -1,0 +1,12 @@
+.progress-bar img {
+    animation: progress-rotate 1s linear infinite;
+}
+
+@keyframes progress-rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}

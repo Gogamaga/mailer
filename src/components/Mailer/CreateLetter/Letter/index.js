@@ -22,7 +22,8 @@ export default class Letter extends Component {
             onChange,
             units,
             array,
-            handlerDeleteLetterItem
+            handlerDeleteLetterItem,
+            onChangeInputRadio
         } = this.props;
         return (
             <div className="create-letter__item" data-id={id}>
@@ -68,13 +69,23 @@ export default class Letter extends Component {
                 <div className="create-letter__item-input-radio-group">
                     <div>
                         <label>
-                            <InputRadio name="units" value="од" onChange={onChange} units={units} />
+                            <InputRadio
+                                name={id}
+                                value="од"
+                                onChange={onChangeInputRadio}
+                                units={units}
+                            />
                             unints.
                         </label>
                     </div>
                     <div>
                         <label>
-                            <InputRadio name="units" value="кг" onChange={onChange} units={units} />
+                            <InputRadio
+                                name={id}
+                                value="кг"
+                                onChange={onChangeInputRadio}
+                                units={units}
+                            />
                             kg.
                         </label>
                     </div>

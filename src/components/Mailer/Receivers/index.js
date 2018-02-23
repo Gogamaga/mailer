@@ -21,8 +21,8 @@ export default class Receivers extends Component {
     render() {
         const { receivers, onChange, letterReceivers, checkedAll } = this.props;
         return (
-            <table className="receiver-table">
-                <thead className="receiver-table__thead">
+            <table className="table">
+                <thead className="table__thead">
                     <tr>
                         <th>
                             <InputCheckbox onChange={checkedAll} checked={this.state.checkedAll} />
