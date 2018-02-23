@@ -1,8 +1,8 @@
 module.exports = {
     mailSender: {
         service: "gmail",
-        user: "jextailor@gmail.com",
-        pass: "chatty35"
+        user: "munhen.stock.ua@gmail.com",
+        pass: "chatty0000"
     },
     dataBase: {
         url: "mongodb://munhen-stock:chatty35@ds215208.mlab.com:15208/mail-viber-sender",

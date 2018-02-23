@@ -3,7 +3,7 @@ const configSendMail = require("../../config/index");
 
 const { service, user, pass } = configSendMail.mailSender;
 
-const sendMail = ({ receivers, name, subject }, htmlText) => {
+const sendMail = ({ receivers, name, subject }, htmlText, callback) => {
     let transporter = nodemailer.createTransport({
         service,
         auth: {
@@ -12,23 +12,22 @@ const sendMail = ({ receivers, name, subject }, htmlText) => {
         }
     });
 
-    receivers.forEach(element => {
+    receivers.forEach(receiver => {
         let mailOptions = {
-            from: "bj", // sender address
-            to: element, // list of receivers
+            from: "Мюнхен <munhen.stock.ua@gmail.com>", // sender address
+            to: receiver, // list of receivers
             subject: subject, // Subject line
             text: name, // plain text body
             html: htmlText // html body
         };
         transporter.sendMail(mailOptions, (error, info) => {
             if (error) {
-                return console.log(error);
+                return console.log("errorrr", error.Error);
             }
-            console.log("Message sent: %s", info);
-            // Preview only available when sending through an Ethereal account
-            console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+            console.log("Message sent: %s", info.messageId);
         });
     });
+    setTimeout(callback, 0);
 };
 
 module.exports = sendMail;

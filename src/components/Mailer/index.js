@@ -76,7 +76,8 @@ export default class Mailer extends Component {
         );
     }
     handlerSend({ target }) {
-        console.log(target.closest("tr").dataset.id);
+        const id = target.closest("tr").dataset.id;
+        requestLetter.sendLetter(id);
     }
     handlerEdit({ target }) {
         const id = target.closest("tr").dataset.id;

@@ -2,7 +2,8 @@ import axios from "axios";
 const url = {
     host: "http://localhost:3000/",
     letter: "letter",
-    receiver: "receiver"
+    receiver: "receiver",
+    send: "send"
 };
 const CancelToken = axios.CancelToken;
 let cancel = null;
@@ -26,6 +27,9 @@ const requestLetter = {
     },
     deleteLetter(id) {
         return axios.delete(`${url.host}${url.letter}/${id}`);
+    },
+    sendLetter(id) {
+        return axios.post(`${url.host}${url.send}/${id}`);
     }
 };
 export default requestLetter;
