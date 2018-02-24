@@ -12,7 +12,7 @@ const sendMail = ({ receivers, name, subject }, htmlText, callback) => {
         }
     });
 
-    receivers.forEach(receiver => {
+    receivers.forEach((receiver, index) => {
         let mailOptions = {
             from: "Мюнхен <munhen.stock.ua@gmail.com>", // sender address
             to: receiver, // list of receivers
@@ -22,9 +22,9 @@ const sendMail = ({ receivers, name, subject }, htmlText, callback) => {
         };
         transporter.sendMail(mailOptions, (error, info) => {
             if (error) {
-                return console.log("errorrr", error.Error);
+                return console.log("errorrr", receiver, index);
             }
-            console.log("Message sent: %s", info.messageId);
+            console.log("Message sent: %s", info.messageId, receiver, index);
         });
     });
     setTimeout(callback, 0);

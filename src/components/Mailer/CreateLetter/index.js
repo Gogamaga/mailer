@@ -8,7 +8,7 @@ import Input from "../../input";
 import Button from "../../button";
 import Letter from "./Letter";
 import Tooltip from "../../tooltip";
-import ProgressBar from "../../progressBar";
+import { ProgressBar } from "../../progressBar";
 import utils from "../../../utils";
 
 export default class CreateLetter extends Component {
@@ -63,102 +63,114 @@ export default class CreateLetter extends Component {
         return (
             <div className="create-letter-wrap">
                 <Button onClick={this.handlerVisibile} />
-                {/* <ProgressBar/> */}
-                <div
-                    className={
-                        !visibilityBlock ? "create-letter create-letter_hidden" : "create-letter"
-                    }
-                >
-                    {xhrStatus && (
-                        <Receivers
-                            receivers={receivers}
-                            letterReceivers={letter.receivers}
-                            onChange={this.handleChangeCheckbox}
-                            checkedAll={this.handleCheckedAllCheckbox}
-                        />
-                    )}
-                </div>
-                <div
-                    className={
-                        visibilityBlock ? "create-letter create-letter_hidden" : "create-letter"
-                    }
-                >
-                    <Tooltip
-                        className={
-                            statusResponse ? "tooltip tooltip_visible" : "tooltip tooltip_hide"
-                        }
-                    >
-                        {tooltipText}
-                    </Tooltip>
-                    <div className="create-letter__info">
-                        <label>
-                            Letter Name<Input
-                                value={
-                                    this.state.letter.name !== undefined
-                                        ? this.state.letter.name
-                                        : ""
-                                }
-                                onChange={this.handleChange}
-                                name="name"
+
+                {!xhrStatus ? (
+                    <ProgressBar />
+                ) : (
+                    <div>
+                        <div
+                            className={
+                                !visibilityBlock
+                                    ? "create-letter create-letter_hidden"
+                                    : "create-letter"
+                            }
+                        >
+                            <Receivers
+                                receivers={receivers}
+                                letterReceivers={letter.receivers}
+                                onChange={this.handleChangeCheckbox}
+                                checkedAll={this.handleCheckedAllCheckbox}
                             />
-                        </label>
-                        <label>
-                            Subject<Input
-                                value={
-                                    this.state.letter.subject !== undefined
-                                        ? this.state.letter.subject
-                                        : ""
+                        </div>
+                        <div
+                            className={
+                                visibilityBlock
+                                    ? "create-letter create-letter_hidden"
+                                    : "create-letter"
+                            }
+                        >
+                            <Tooltip
+                                className={
+                                    statusResponse
+                                        ? "tooltip tooltip_visible"
+                                        : "tooltip tooltip_hide"
                                 }
-                                onChange={this.handleChange}
-                                name="subject"
-                            />
-                        </label>
-                    </div>
-                    <hr />
-                    <div className="">
-                        {letter.letterItem &&
-                            xhrStatus &&
-                            letter.letterItem.map((item, index, array) => {
-                                const {
-                                    id,
-                                    itemName,
-                                    hrefItem,
-                                    imageItem,
-                                    brandName,
-                                    imageBrand,
-                                    price,
-                                    count,
-                                    units
-                                } = item;
-                                return (
-                                    <Letter
-                                        key={id}
-                                        id={id}
-                                        itemName={itemName}
-                                        hrefItem={hrefItem}
-                                        imageItem={imageItem}
-                                        brandName={brandName}
-                                        imageBrand={imageBrand}
-                                        price={price}
-                                        count={count}
+                            >
+                                {tooltipText}
+                            </Tooltip>
+                            <div className="create-letter__info">
+                                <label>
+                                    Letter Name<Input
+                                        value={
+                                            this.state.letter.name !== undefined
+                                                ? this.state.letter.name
+                                                : ""
+                                        }
                                         onChange={this.handleChange}
-                                        onChangeInputRadio={this.handleChangeInputRadio}
-                                        units={units}
-                                        array={array}
-                                        handlerDeleteLetterItem={this.handlerDeleteLetterItem}
+                                        name="name"
                                     />
-                                );
-                            })}
+                                </label>
+                                <label>
+                                    Subject<Input
+                                        value={
+                                            this.state.letter.subject !== undefined
+                                                ? this.state.letter.subject
+                                                : ""
+                                        }
+                                        onChange={this.handleChange}
+                                        name="subject"
+                                    />
+                                </label>
+                            </div>
+                            <hr />
+                            <div className="">
+                                {letter.letterItem &&
+                                    xhrStatus &&
+                                    letter.letterItem.map((item, index, array) => {
+                                        const {
+                                            id,
+                                            itemName,
+                                            hrefItem,
+                                            imageItem,
+                                            brandName,
+                                            imageBrand,
+                                            price,
+                                            count,
+                                            units
+                                        } = item;
+                                        return (
+                                            <Letter
+                                                key={id}
+                                                id={id}
+                                                itemName={itemName}
+                                                hrefItem={hrefItem}
+                                                imageItem={imageItem}
+                                                brandName={brandName}
+                                                imageBrand={imageBrand}
+                                                price={price}
+                                                count={count}
+                                                onChange={this.handleChange}
+                                                onChangeInputRadio={this.handleChangeInputRadio}
+                                                units={units}
+                                                array={array}
+                                                handlerDeleteLetterItem={
+                                                    this.handlerDeleteLetterItem
+                                                }
+                                            />
+                                        );
+                                    })}
+                            </div>
+                            <div className="create-letter__button-group">
+                                {this.props.id ? (
+                                    <Button onClick={this.handleEditLetter}>Edit</Button>
+                                ) : (
+                                    <Button onClick={this.handleSaveLetter}>Save</Button>
+                                )}
+                                <Button onClick={this.addLetterItem}>Add Item</Button>
+                            </div>
+                        </div>
                     </div>
-                    <div className="create-letter__button-group">
-                        {this.props.id ? (
-                            <Button onClick={this.handleEditLetter}>Edit</Button>
-                        ) : (
-                            <Button onClick={this.handleSaveLetter}>Save</Button>
-                        )}
-                        <Button onClick={this.addLetterItem}>Add Item</Button>
-                    </div>
-                </div>
+                )}
             </div>
         );
     }

@@ -10,10 +10,13 @@ export default class Input extends Component {
         this.handleFocus = this.handleFocus.bind(this);
         this.handleBlur = this.handleBlur.bind(this);
     }
+    shouldComponentUpdate(nextProps, nextState) {
+        return nextProps.value !== this.props.value || nextState.focus !== this.state.focus;
+    }
 
     render() {
         const { type, name, onChange, placeholder, dataId, value } = this.props;
-
+        console.log("input");
         return (
             <div className="container-input">
                 <input

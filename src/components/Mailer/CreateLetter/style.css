@@ -1,6 +1,13 @@
 .create-letter-wrap {
     position: relative;
 }
+.create-letter-wrap > .progress-bar {
+    position: absolute;
+    top: 100px;
+   
+    left: calc(50% - 58px);
+ 
+}
 
 .create-letter {
     width: 100%;
