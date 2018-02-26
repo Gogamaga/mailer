@@ -5,7 +5,7 @@ export default class Input extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            focus: false
+            focus: false 
         };
         this.handleFocus = this.handleFocus.bind(this);
         this.handleBlur = this.handleBlur.bind(this);

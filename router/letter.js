@@ -38,10 +38,8 @@ module.exports = {
         dataBase.getOneLetter(id).then(result => {
             const fn = pug.compileFile("./mail.pug");
             const htmlLetter = fn({ letterItem: result.letterItem });
-            mailSender(result, htmlLetter, () => {
-                console.log("SEND");
-                res.end();
-            });
+            mailSender(result, htmlLetter);
+            res.end();
         });
     }
 };

@@ -4,7 +4,7 @@ import requestReceiver from "../../../requests/receiver";
 import constants from "../../../constants";
 import "./style.css";
 import Receivers from "../Receivers";
-import Input from "../../input";
+import Input from "../../input/index.jsx";
 import Button from "../../button";
 import Letter from "./Letter";
 import Tooltip from "../../tooltip";
@@ -60,6 +60,7 @@ export default class CreateLetter extends Component {
             visibilityBlock,
             xhrStatus
         } = this.state;
+
         return (
             <div className="create-letter-wrap">
                 <Button onClick={this.handlerVisibile} />

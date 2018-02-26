@@ -3,31 +3,39 @@ const configSendMail = require("../../config/index");
 
 const { service, user, pass } = configSendMail.mailSender;
 
-const sendMail = ({ receivers, name, subject }, htmlText, callback) => {
-    let transporter = nodemailer.createTransport({
+const sendMail = ({ receivers, name, subject }, htmlText) => {
+    const transporter = nodemailer.createTransport({
         service,
         auth: {
             user,
             pass
         }
     });
-
-    receivers.forEach((receiver, index) => {
-        let mailOptions = {
-            from: "Мюнхен <munhen.stock.ua@gmail.com>", // sender address
-            to: receiver, // list of receivers
-            subject: subject, // Subject line
-            text: name, // plain text body
-            html: htmlText // html body
-        };
-        transporter.sendMail(mailOptions, (error, info) => {
-            if (error) {
-                return console.log("errorrr", receiver, index);
-            }
-            console.log("Message sent: %s", info.messageId, receiver, index);
-        });
+    receivers.forEach((rec, ind) => {
+        send(rec, ind)
+            .then(info => {
+                console.log(info, "index: " + ind);
+            })
+            .catch(err => console.log(err, "index: " + ind));
     });
-    setTimeout(callback, 0);
+    function send(receiver, index) {
+        return new Promise((resolve, reject) => {
+            let mailOptions = {
+                from: "Мюнхен <munhen.stock.ua@gmail.com>", // sender address
+                to: receiver, // list of receivers
+                subject: subject, // Subject line
+                text: name, // plain text body
+                html: htmlText // html body
+            };
+
+            transporter.sendMail(mailOptions, (err, info) => {
+                if (err) {
+                    return reject(err);
+                }
+                return resolve(info);
+            });
+        });
+    }
 };
 
 module.exports = sendMail;

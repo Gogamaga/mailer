@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./style.css";
-import Input from "../../../input";
+import Input from "../../../input/index.jsx";
 import InputRadio from "../../../inputRadio";
 import Button from "../../../button";
 
