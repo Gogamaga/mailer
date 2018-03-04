@@ -6,6 +6,7 @@ import Button from "../button";
 import CreateLetter from "./CreateLetter";
 import Tooltip from "../tooltip";
 import Receivers from "./Receivers";
+import { ProgressBar } from "../progressBar";
 import utils from "../../utils";
 
 export default class Mailer extends Component {
@@ -16,7 +17,8 @@ export default class Mailer extends Component {
             createLetter: false,
             editLetterId: null,
             statusResponse: false,
-            statusDataBase: false
+            statusDataBase: false,
+            xhrStatus: false
         };
 
         this.handlerSend = this.handlerSend.bind(this);
@@ -29,7 +31,7 @@ export default class Mailer extends Component {
         requestLetter
             .getAllLetters()
             .then(({ data }) => {
-                this.setState({ letters: data });
+                this.setState({ letters: data, xhrStatus: true });
             })
             .catch(e => (e.message ? false : console.log(e)));
     }
@@ -38,7 +40,14 @@ export default class Mailer extends Component {
     }
     render() {
         const { activeLink, onClick } = this.props;
-        const { letters, createLetter, editLetterId, statusDataBase, statusResponse } = this.state;
+        const {
+            letters,
+            createLetter,
+            editLetterId,
+            statusDataBase,
+            statusResponse,
+            xhrStatus
+        } = this.state;
         return (
             <div className="mailer-wrap">
                 <Tooltip
@@ -63,12 +72,16 @@ export default class Mailer extends Component {
                 )}
 
                 {!this.state.createLetter ? (
-                    <TableLetter
-                        onSend={this.handlerSend}
-                        onEdit={this.handlerEdit}
-                        onDelete={this.handlerDelete}
-                        letters={this.state.letters}
-                    />
+                    xhrStatus ? (
+                        <TableLetter
+                            onSend={this.handlerSend}
+                            onEdit={this.handlerEdit}
+                            onDelete={this.handlerDelete}
+                            letters={this.state.letters}
+                        />
+                    ) : (
+                        <ProgressBar />
+                    )
                 ) : (
                     <CreateLetter id={this.state.editLetterId} />
                 )}

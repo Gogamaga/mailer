@@ -11,13 +11,15 @@ const sendMail = ({ receivers, name, subject }, htmlText) => {
             pass
         }
     });
-    receivers.forEach((rec, ind) => {
-        send(rec, ind)
-            .then(info => {
-                console.log(info, "index: " + ind);
-            })
-            .catch(err => console.log(err, "index: " + ind));
-    });
+
+    async function sender(receivers) {
+        for (let i = 0; i < receivers.length; i++) {
+            const result = await send(receivers[i]);
+            console.log(result);
+        }
+    }
+    sender(receivers);
+
     function send(receiver, index) {
         return new Promise((resolve, reject) => {
             let mailOptions = {
@@ -32,7 +34,7 @@ const sendMail = ({ receivers, name, subject }, htmlText) => {
                 if (err) {
                     return reject(err);
                 }
-                return resolve(info);
+                return resolve(info.accepted);
             });
         });
     }

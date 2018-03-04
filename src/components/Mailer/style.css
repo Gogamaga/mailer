@@ -1,1 +1,4 @@
-
+.mailer-wrap > .progress-bar {
+    width: max-content;
+    margin: 150px auto;
+}

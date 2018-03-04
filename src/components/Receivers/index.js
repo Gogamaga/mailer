@@ -27,6 +27,11 @@ export default class Receivers extends Component {
         receiverRequest.getAllReceiver().then(({ data }) => {
             this.setState({ receivers: data });
         });
+        document.querySelector(".main").addEventListener("scroll", ({ target }) => {
+            const width = target.scrollTop;
+
+            console.log(this.receiverWrap.offsetHeight - window.innerHeight, width);
+        });
     }
     render() {
         const {
@@ -37,7 +42,7 @@ export default class Receivers extends Component {
             tooltipText
         } = this.state;
         return (
-            <div className="receivers-wrap">
+            <div className="receivers-wrap" ref={c => (this.receiverWrap = c)}>
                 <Tooltip
                     className={statusResponse ? "tooltip tooltip_visible" : "tooltip tooltip_hide"}
                 >

@@ -46,7 +46,7 @@ export default class CreateLetter extends Component {
               })
             : requestReceiver.getAllReceiver().then(({ data }) => {
                   const receivers = data;
-                  this.setState({ receivers, letter: constants.newLetter });
+                  this.setState({ receivers, letter: constants.newLetter(), xhrStatus: true });
               });
     }
     render() {
