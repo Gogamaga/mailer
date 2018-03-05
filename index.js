@@ -14,7 +14,7 @@ app.use(express.static(__dirname + "/public", { index: false }));
 app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname + "/public/index.html"));
 });
-app.post("/receiver", receiverRouter.saveReceiver);
+// app.post("/receiver", receiverRouter.saveReceiver);
 
 //SEND LETTER
 
@@ -25,6 +25,7 @@ app.get("/receiver", receiverRouter.getAllReceiver);
 app.get("/receiver/:id", receiverRouter.getOneReceiver);
 
 app.post("/receiver", receiverRouter.saveReceiver);
+app.post("/receiverlimit", receiverRouter.getLimitReceivers);
 app.put("/receiver/:id", receiverRouter.updateReceiver);
 
 app.delete("/receiver/:id", receiverRouter.deleteReceiver);

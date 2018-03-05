@@ -8,3 +8,10 @@
 .receiver-table__thead th {
     padding: 15px 0;
 }
+.receiver-table__wrap .progress-bar {
+    width: 25px;
+    margin: 10px auto;
+}
+.receiver-table__wrap .progress-bar > img {
+    width: 50px;
+}

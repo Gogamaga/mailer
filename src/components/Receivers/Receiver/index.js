@@ -1,11 +1,14 @@
 import React, { Component } from "react";
-import "./style.css";
+
 import Input from "../../input/index.jsx";
 import Button from "../../button";
 import Tooltip from "../../tooltip";
+
 import request from "../../../requests/receiver";
 import constants from "../../../constants";
 import utils from "../../../utils";
+
+import "./style.css";
 
 export default class Receiver extends Component {
     constructor(props) {

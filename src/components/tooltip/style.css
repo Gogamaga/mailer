@@ -8,10 +8,10 @@
 .tooltip_hide {
     position: fixed;
     left: 10px;
-    top: -50px;
+    top: -10px;
 }
 .tooltip_visible {
     position: fixed;
     left: 10px;
-    top: 10px;
+    top: 60px;
 }

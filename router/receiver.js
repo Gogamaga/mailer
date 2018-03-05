@@ -10,6 +10,17 @@ module.exports = {
     getAllReceiver: (req, res) => {
         dataBase.getAllReceivers().then(result => res.send(result));
     },
+    getLimitReceivers(req, res) {
+        const { from, to } = req.body;
+        dataBase
+            .getAllReceivers()
+            .then(result => {
+                return (limitReceivers = result.filter(
+                    (receiver, index) => (index >= from && index < to ? true : false)
+                ));
+            })
+            .then(result => res.send(result));
+    },
     getOneReceiver: (req, res) => {
         const id = req.params.id;
         dataBase.getOneReceiver(id).then(result => {

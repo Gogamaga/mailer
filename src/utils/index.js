@@ -27,5 +27,9 @@ export default {
         setTimeout(() => {
             this.setState(object);
         }, delay);
+    },
+    getComputedStyle(target, property) {
+        const value = window.getComputedStyle(target, null).getPropertyValue(property);
+        return parseInt(value);
     }
 };

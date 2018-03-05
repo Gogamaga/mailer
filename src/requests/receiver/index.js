@@ -1,7 +1,7 @@
 import axios from "axios";
 import constants from "../../constants";
 
-const { host, receiver } = constants.url;
+const { host, receiver, receiverLimit } = constants.url;
 
 export default {
     getAllReceiver() {
@@ -9,6 +9,9 @@ export default {
     },
     getOneReceiver(id) {
         return axios.get(`${host}${receiver}/${id}`);
+    },
+    getLimitReceivers(obj) {
+        return axios.post(`${host}${receiverLimit}`, obj);
     },
     saveReceiver(newReceiver) {
         return axios.post(`${host}${receiver}`, newReceiver);

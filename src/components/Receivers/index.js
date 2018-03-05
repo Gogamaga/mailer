@@ -1,12 +1,15 @@
 import React, { Component } from "react";
-import receiverRequest from "../../requests/receiver";
-import "./style.css";
+
 import TableReceiver from "./TableReceiver";
 import Button from "../button";
 import Receiver from "./Receiver";
 import Tooltip from "../tooltip";
+
 import utils from "../../utils";
 import request from "../../requests/receiver";
+import receiverRequest from "../../requests/receiver";
+
+import "./style.css";
 
 export default class Receivers extends Component {
     constructor(props) {
@@ -16,7 +19,13 @@ export default class Receivers extends Component {
             createReceiver: false,
             editReceiver_Id: null,
             tooltipText: null,
-            statusResponse: false
+            statusResponse: false,
+            visibleProgressBar: true
+        };
+        this.limit = {
+            from: 0,
+            to: 10,
+            step: 10
         };
         this.handleCreateReceiver = this.handleCreateReceiver.bind(this);
         this.handleEditReceiver = this.handleEditReceiver.bind(this);
@@ -24,22 +33,43 @@ export default class Receivers extends Component {
         this.hideTooltip = utils.hideTooltip.bind(this);
     }
     componentDidMount() {
-        receiverRequest.getAllReceiver().then(({ data }) => {
-            this.setState({ receivers: data });
+        receiverRequest.getLimitReceivers(this.limit).then(({ data }) => {
+            this.setState({ receivers: data, visibleProgressBar: false });
         });
-        document.querySelector(".main").addEventListener("scroll", ({ target }) => {
-            const width = target.scrollTop;
-
-            console.log(this.receiverWrap.offsetHeight - window.innerHeight, width);
-        });
+        document.querySelector(".main").addEventListener("scroll", this.handlerScroll);
     }
+    componentWillUnmount() {
+        document.querySelector(".main").removeEventListener("scroll", this.handlerScroll);
+    }
+    handlerScroll = ({ target }) => {
+        const scrollTop = target.scrollTop;
+        const innerHeightTarget =
+            target.clientHeight -
+            (utils.getComputedStyle(target, "padding-top") +
+                utils.getComputedStyle(target, "padding-bottom"));
+        const { from, to, step } = this.limit;
+        if (scrollTop === this.receiverWrap.offsetHeight - innerHeightTarget) {
+            this.setState({ visibleProgressBar: true });
+            this.limit = Object.assign({}, { from: from + step, to: to + step, step });
+            receiverRequest.getLimitReceivers(this.limit).then(({ data }) => {
+                this.setState(prevState => {
+                    return {
+                        receivers: [...prevState.receivers, ...data],
+                        visibleProgressBar: false
+                    };
+                });
+            });
+        }
+    };
+
     render() {
         const {
             receivers,
             createReceiver,
             editReceiver_Id,
             statusResponse,
-            tooltipText
+            tooltipText,
+            visibleProgressBar
         } = this.state;
         return (
             <div className="receivers-wrap" ref={c => (this.receiverWrap = c)}>
@@ -56,6 +86,7 @@ export default class Receivers extends Component {
                         receivers={receivers}
                         onEdit={this.handleEditReceiver}
                         onDelete={this.handleDeleteReceiver}
+                        visibleProgressBar={visibleProgressBar}
                     />
                 ) : (
                     <Receiver id={editReceiver_Id} />

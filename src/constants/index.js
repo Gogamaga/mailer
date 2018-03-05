@@ -43,6 +43,7 @@ export default {
     url: {
         host: "http://localhost:3000/",
         letter: "letter",
-        receiver: "receiver"
+        receiver: "receiver",
+        receiverLimit: "receiverlimit"
     }
 };
