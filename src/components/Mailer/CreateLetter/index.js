@@ -63,7 +63,7 @@ export default class CreateLetter extends Component {
 
         return (
             <div className="create-letter-wrap">
-                <Button onClick={this.handlerVisibile} />
+                <Button onClick={this.handlerVisibile}>{"<"}</Button>
 
                 {!xhrStatus ? (
                     <ProgressBar />

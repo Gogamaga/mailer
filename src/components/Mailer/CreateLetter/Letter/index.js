@@ -28,9 +28,11 @@ export default class Letter extends Component {
         return (
             <div className="create-letter__item" data-id={id}>
                 {array.length > 1 && (
-                    <Button onClick={handlerDeleteLetterItem}>
-                        <i className="fas fa-times" />
-                    </Button>
+                    <div>
+                        <Button onClick={handlerDeleteLetterItem}>
+                            <i className="fas fa-times" />
+                        </Button>
+                    </div>
                 )}
 
                 <label>

@@ -15,9 +15,10 @@ module.exports = {
         dataBase
             .getAllReceivers()
             .then(result => {
-                return (limitReceivers = result.filter(
+                const limitReceivers = result.filter(
                     (receiver, index) => (index >= from && index < to ? true : false)
-                ));
+                );
+                return { limitReceivers, receiverCount: result.length };
             })
             .then(result => res.send(result));
     },

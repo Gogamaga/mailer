@@ -27,6 +27,8 @@ export default class Receivers extends Component {
             to: 10,
             step: 10
         };
+        this.receiverCount = 0;
+
         this.handleCreateReceiver = this.handleCreateReceiver.bind(this);
         this.handleEditReceiver = this.handleEditReceiver.bind(this);
         this.handleDeleteReceiver = this.handleDeleteReceiver.bind(this);
@@ -34,7 +36,8 @@ export default class Receivers extends Component {
     }
     componentDidMount() {
         receiverRequest.getLimitReceivers(this.limit).then(({ data }) => {
-            this.setState({ receivers: data, visibleProgressBar: false });
+            this.receiverCount = data.receiverCount;
+            this.setState({ receivers: data.limitReceivers, visibleProgressBar: false });
         });
         document.querySelector(".main").addEventListener("scroll", this.handlerScroll);
     }
@@ -48,13 +51,16 @@ export default class Receivers extends Component {
             (utils.getComputedStyle(target, "padding-top") +
                 utils.getComputedStyle(target, "padding-bottom"));
         const { from, to, step } = this.limit;
-        if (scrollTop === this.receiverWrap.offsetHeight - innerHeightTarget) {
+        if (
+            this.state.receivers.length < this.receiverCount &&
+            scrollTop === this.receiverWrap.offsetHeight - innerHeightTarget
+        ) {
             this.setState({ visibleProgressBar: true });
             this.limit = Object.assign({}, { from: from + step, to: to + step, step });
             receiverRequest.getLimitReceivers(this.limit).then(({ data }) => {
                 this.setState(prevState => {
                     return {
-                        receivers: [...prevState.receivers, ...data],
+                        receivers: [...prevState.receivers, ...data.limitReceivers],
                         visibleProgressBar: false
                     };
                 });
@@ -87,6 +93,7 @@ export default class Receivers extends Component {
                         onEdit={this.handleEditReceiver}
                         onDelete={this.handleDeleteReceiver}
                         visibleProgressBar={visibleProgressBar}
+                        endScroll={receivers.length < this.receiverCount}
                     />
                 ) : (
                     <Receiver id={editReceiver_Id} />

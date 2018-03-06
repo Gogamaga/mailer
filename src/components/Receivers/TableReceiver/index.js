@@ -10,7 +10,7 @@ export default class TableReceiver extends Component {
         super(props);
     }
     render() {
-        const { receivers, onEdit, onDelete, visibleProgressBar } = this.props;
+        const { receivers, onEdit, onDelete, visibleProgressBar, endScroll } = this.props;
         return (
             <div className="receiver-table__wrap">
                 <table className="receiver-table">
@@ -45,7 +45,11 @@ export default class TableReceiver extends Component {
                         })}
                     </tbody>
                 </table>
-                {visibleProgressBar && <ProgressBar />}
+                {visibleProgressBar ? (
+                    <ProgressBar />
+                ) : !visibleProgressBar && endScroll ? (
+                    <p className="scroll-tooltip">scroll for more</p>
+                ) : null}
             </div>
         );
     }

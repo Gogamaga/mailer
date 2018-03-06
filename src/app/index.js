@@ -3,6 +3,8 @@ import Header from "../components/Header";
 import Main from "../components/Main";
 
 import "./style.css";
+import "./media.css";
+
 export default class App extends Component {
     constructor(props) {
         super(props);

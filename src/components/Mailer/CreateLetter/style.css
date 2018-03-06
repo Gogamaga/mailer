@@ -4,15 +4,13 @@
 .create-letter-wrap > .progress-bar {
     position: absolute;
     top: 100px;
-   
+
     left: calc(50% - 58px);
- 
 }
 
 .create-letter {
     width: 100%;
     margin-top: 20px;
-    background-color: #232323;
     padding: 20px;
     position: absolute;
     left: 0;
@@ -35,4 +33,10 @@
 }
 .create-letter_hidden {
     left: calc(-100% - 25px);
+}
+.create-letter-wrap > button:first-child {
+    position: fixed;
+    top: 50%;
+    left: 5px;
+    z-index: 1;
 }

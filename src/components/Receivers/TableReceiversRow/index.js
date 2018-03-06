@@ -22,7 +22,7 @@ export default function TableReceiverRow({
     return (
         <tr className="receiver-table__tbody-row" data-id={id}>
             {checkbox && (
-                <th>
+                <th className="receiver-table__tbody-row__th-checkbox">
                     <InputCheckbox onChange={onChange} value={valueCheckbox} checked={checked} />
                 </th>
             )}

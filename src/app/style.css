@@ -18,8 +18,7 @@ body {
 }
 .container {
 }
-.table{
-
+.table {
 }
 .table {
     width: 100%;
@@ -29,5 +28,8 @@ body {
     background-color: #232323;
 }
 .table__thead th {
-    padding: 15px 0;
+    padding: 10px;
+}
+tbody th {
+    text-align: left;
 }

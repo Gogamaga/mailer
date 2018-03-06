@@ -1,0 +1,7 @@
+.receiver-table__tbody-row:hover {
+    background-color: #232323;
+    transition: background-color 0.2s;
+}
+.receiver-table__tbody-row__th-checkbox {
+    padding: 5px 10px;
+}
