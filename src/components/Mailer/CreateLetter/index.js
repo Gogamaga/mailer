@@ -162,7 +162,7 @@ export default class CreateLetter extends Component {
                                     })}
                             </div>
                             <div className="create-letter__button-group">
-                                {this.props.id ? (
+                                {this.props.id || letter._id ? (
                                     <Button onClick={this.handleEditLetter}>Edit</Button>
                                 ) : (
                                     <Button onClick={this.handleSaveLetter}>Save</Button>
@@ -232,14 +232,14 @@ export default class CreateLetter extends Component {
             request
                 .saveLetter(letter)
                 .then(({ data }) => {
-                    this.setState(
-                        {
-                            statusDataBase: data.n,
+                    this.setState(prevState => {
+                        return {
+                            statusDataBase: data.result.n,
                             statusResponse: true,
-                            tooltipText: "Saved Success"
-                        },
-                        this.hideTooltip({ statusResponse: false }, 2000)
-                    );
+                            tooltipText: "Saved Success",
+                            letter: { ...prevState.letter, _id: data._id }
+                        };
+                    }, this.hideTooltip({ statusResponse: false }, 2000));
                 })
                 .catch(result => console.log(result));
         } else {
@@ -250,7 +250,7 @@ export default class CreateLetter extends Component {
         const { letter } = this.state;
         if (utils.validateInput(letter)) {
             request
-                .updateLetter(this.props.id, letter)
+                .updateLetter(letter._id, letter)
                 .then(({ data }) => {
                     this.setState({
                         statusDataBase: data.n,

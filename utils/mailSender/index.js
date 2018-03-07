@@ -15,7 +15,7 @@ const sendMail = ({ receivers, name, subject }, htmlText) => {
     async function sender(receivers) {
         for (let i = 0; i < receivers.length; i++) {
             const result = await send(receivers[i]);
-            console.log(result);
+            console.log(result, i);
         }
     }
     sender(receivers);

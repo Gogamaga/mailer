@@ -7,7 +7,10 @@ module.exports = {
     saveLetter: (req, res) => {
         const letter = req.body;
         letter.dateCreate = moment().format("YYYY-MM-DD HH:mm:ss");
-        dataBase.saveLetter(req.body).then(result => res.send(result));
+        dataBase.saveLetter(req.body).then(result => {
+            console.log(result.insertedId);
+            res.send({ result, _id: result.insertedId });
+        });
     },
     getAllLetters: (req, res) => {
         dataBase.getAllLetters().then(result => res.send(result));
@@ -21,6 +24,8 @@ module.exports = {
     updateLetter: (req, res) => {
         const id = req.params.id;
         const letter = req.body;
+        letter.dateCreate = moment().format("YYYY-MM-DD HH:mm:ss");
+        delete letter._id;
         dataBase
             .updateLetter(id, letter)
             .then(result => res.send(result))

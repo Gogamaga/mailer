@@ -61,7 +61,7 @@ module.exports = {
     },
     getOneLetter: id => {
         return connectDB().then(db => {
-            return db.collection(letters).findOne({ _id: ObjectId(id) }, { fields: { _id: 0 } });
+            return db.collection(letters).findOne({ _id: ObjectId(id) });
         });
     },
     updateLetter: (id, letter) => {
