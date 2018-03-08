@@ -1,7 +1,7 @@
 import axios from "axios";
 import constants from "../../constants";
 
-const { host, receiver, receiverLimit } = constants.url;
+const { host, receiver, receiverLimit, validate} = constants.url;
 
 export default {
     getAllReceiver() {
@@ -21,5 +21,8 @@ export default {
     },
     deleteReceiver(id) {
         return axios.delete(`${host}${receiver}/${id}`);
+    },
+    validateOnIndentity(target){
+        return axios.post(`${host}${receiver}/${validate}`, target);
     }
 };

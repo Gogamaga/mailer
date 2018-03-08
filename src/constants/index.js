@@ -44,6 +44,7 @@ export default {
         host: "http://localhost:3000/",
         letter: "letter",
         receiver: "receiver",
-        receiverLimit: "receiverlimit"
+        receiverLimit: "receiverlimit",
+        validate: 'validate'
     }
 };

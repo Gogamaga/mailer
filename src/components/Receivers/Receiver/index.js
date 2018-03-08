@@ -17,15 +17,18 @@ export default class Receiver extends Component {
             receiver: {
                 name: "",
                 email: "",
-                phone: ""
+                phone: "",
+                information: ""
             },
             statusResponse: false,
-            tooltipText: null
+            tooltipText: null,
+            validate: false
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleEditReceiver = this.handleEditReceiver.bind(this);
         this.handleSaveReceiver = this.handleSaveReceiver.bind(this);
         this.hideTooltip = utils.hideTooltip.bind(this);
+        this.handleValidateOnIndentity = this.handleValidateOnIndentity.bind(this);
     }
 
     componentDidMount() {
@@ -36,7 +39,12 @@ export default class Receiver extends Component {
     }
 
     render() {
-        const { statusResponse, tooltipText, receiver: { name, email, phone } } = this.state;
+        const {
+            statusResponse,
+            tooltipText,
+            receiver: { name, email, phone, information },
+            validate
+        } = this.state;
         return (
             <div className="create-receiver">
                 <Tooltip
@@ -49,12 +57,29 @@ export default class Receiver extends Component {
                     <Input value={name} name={"name"} onChange={this.handleChange} />
                 </label>
                 <label>
-                    E-mail:
-                    <Input value={email} name={"email"} onChange={this.handleChange} />
+                    E-mail:{" "}
+                    {validate && (
+                        <span className="create-receiver__validate-text">e-mail already exist</span>
+                    )}
+                    <Input
+                        value={email}
+                        name={"email"}
+                        onChange={this.handleChange}
+                        onBlur={this.handleValidateOnIndentity}
+                    />
                 </label>
                 <label>
-                    Phone
+                    Phone:
                     <Input value={phone} name={"phone"} onChange={this.handleChange} />
+                </label>
+                <label>
+                    Information:
+                    <textarea
+                        value={information}
+                        name={"information"}
+                        className="container-input__input"
+                        onChange={this.handleChange}
+                    />
                 </label>
                 {this.props.id ? (
                     <Button onClick={this.handleEditReceiver}>Edit</Button>
@@ -90,5 +115,12 @@ export default class Receiver extends Component {
                 this.hideTooltip({ statusResponse: false }, 3000)
             );
         });
+    }
+    handleValidateOnIndentity({ target }) {
+        const name = target.name;
+        const value = target.value;
+        request
+            .validateOnIndentity({ [name]: value })
+            .then(({ data }) => this.setState({ validate: data }));
     }
 }

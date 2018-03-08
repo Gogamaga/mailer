@@ -29,6 +29,8 @@ app.post("/receiverlimit", receiverRouter.getLimitReceivers);
 app.put("/receiver/:id", receiverRouter.updateReceiver);
 
 app.delete("/receiver/:id", receiverRouter.deleteReceiver);
+// Validate receiver on indentity
+app.post('/receiver/validate', receiverRouter.validateOnIndentity)
 
 app.post("/letter", letterRouter.saveLetter);
 app.get("/letter", letterRouter.getAllLetters);

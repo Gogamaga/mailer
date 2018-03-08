@@ -12,6 +12,9 @@
     font-weight: 300;
     letter-spacing: 1px;
 }
+.container-input__input_not-valid{
+    background-color: #ff00003f;
+}
 .container-input__hr {
     background-color: hsl(206.1, 79.3%, 52.7%);
     height: 1px;

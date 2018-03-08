@@ -5,7 +5,7 @@ export default class Input extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            focus: false 
+            focus: false
         };
         this.handleFocus = this.handleFocus.bind(this);
         this.handleBlur = this.handleBlur.bind(this);
@@ -15,7 +15,7 @@ export default class Input extends Component {
     }
 
     render() {
-        const { type, name, onChange, placeholder, dataId, value } = this.props;
+        const { type, name, onChange, placeholder, dataId, value, onBlur } = this.props;
         console.log("input");
         return (
             <div className="container-input">
@@ -28,6 +28,7 @@ export default class Input extends Component {
                     onChange={onChange}
                     onFocus={this.handleFocus}
                     onBlur={this.handleBlur}
+                    
                 />
                 <hr
                     className={
@@ -42,7 +43,8 @@ export default class Input extends Component {
     handleFocus() {
         this.setState({ focus: true });
     }
-    handleBlur() {
+    handleBlur(e) {
         this.setState({ focus: false });
+        this.props.onBlur&&this.props.onBlur(e)
     }
 }

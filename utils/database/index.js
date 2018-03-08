@@ -33,6 +33,11 @@ module.exports = {
             return db.collection(receivers).findOne({ _id: ObjectId(id) }, { fields: { _id: 0 } });
         });
     },
+    validateOnIndentity(target){
+        return connectDB().then(db => {
+            return db.collection(receivers).findOne(target)
+        })
+    },
     deleteReceiver: id => {
         return connectDB().then(db => {
             return db.collection(receivers).deleteOne({ _id: ObjectId(id) });
