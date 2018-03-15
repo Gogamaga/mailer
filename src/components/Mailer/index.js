@@ -57,14 +57,14 @@ export default class Mailer extends Component {
                 </Tooltip>
                 {!createLetter ? (
                     <Button
-                        backgroundColor={"hsl(206.1, 79.3%, 52.7%)"}
+                        style={{ backgroundColor: "hsl(206.1, 79.3%, 52.7%)" }}
                         onClick={this.handleCreateLetter}
                     >
                         New Letter
                     </Button>
                 ) : (
                     <Button
-                        backgroundColor={"hsl(206.1, 79.3%, 52.7%)"}
+                        style={{ backgroundColor: "hsl(206.1, 79.3%, 52.7%)" }}
                         onClick={this.handleCreateLetter}
                     >
                         Back to List

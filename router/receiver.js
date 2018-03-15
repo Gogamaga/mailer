@@ -41,8 +41,21 @@ module.exports = {
             res.send(result);
         });
     },
-    validateOnIndentity(req, res){
+    validateOnIndentity(req, res) {
         const target = req.body;
-        dataBase.validateOnIndentity(target).then(result => res.send(!!result))
+        dataBase.validateOnIndentity(target).then(result => res.send(!!result));
+    },
+    searchReceiver(req, res) {
+        const { field, searchValue, from, to } = req.body;
+        dataBase
+            .searchingRecever(field, searchValue)
+            .then(result => {
+                const limitReceivers = result.filter(
+                    (receiver, index) => (index >= from && index < to ? true : false)
+                );
+                return { limitReceivers, receiverCount: result.length };
+            })
+            .then(result => res.send(result))
+            .catch(e => console.log(e));
     }
 };

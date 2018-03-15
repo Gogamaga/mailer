@@ -1,7 +1,7 @@
 import axios from "axios";
 import constants from "../../constants";
 
-const { host, receiver, receiverLimit, validate} = constants.url;
+const { host, receiver, receiverLimit, validate,search} = constants.url;
 
 export default {
     getAllReceiver() {
@@ -24,5 +24,8 @@ export default {
     },
     validateOnIndentity(target){
         return axios.post(`${host}${receiver}/${validate}`, target);
+    },
+    searchReceiver(searchingReceiver, limit){
+        return axios.post(`${host}${receiver}/${search}`, {...searchingReceiver, ...limit})
     }
 };

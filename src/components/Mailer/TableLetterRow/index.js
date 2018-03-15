@@ -14,12 +14,12 @@ export default function TableLetterRow({ name, subject, date, onSend, onDelete, 
                 </Button>
             </th>
             <th>
-                <Button onClick={onEdit} backgroundColor={"#28a745"}>
+                <Button onClick={onEdit} style={{ backgroundColor: "#28a745" }}>
                     <i className="fas fa-pen-square" /> Edit
                 </Button>
             </th>
             <th>
-                <Button backgroundColor={"#ff0000"} onClick={onDelete}>
+                <Button onClick={onDelete} style={{ backgroundColor: "#ff0000" }}>
                     <i className="far fa-trash-alt" /> Delete
                 </Button>
             </th>

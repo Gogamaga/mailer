@@ -33,10 +33,19 @@ module.exports = {
             return db.collection(receivers).findOne({ _id: ObjectId(id) }, { fields: { _id: 0 } });
         });
     },
-    validateOnIndentity(target){
+    validateOnIndentity(target) {
         return connectDB().then(db => {
-            return db.collection(receivers).findOne(target)
-        })
+            return db.collection(receivers).findOne(target);
+        });
+    },
+    searchingRecever(field, value) {
+        const regex = new RegExp(value, "i");
+        return connectDB().then(db => {
+            return db
+                .collection(receivers)
+                .find({ [field]: { $regex: regex } })
+                .toArray();
+        });
     },
     deleteReceiver: id => {
         return connectDB().then(db => {

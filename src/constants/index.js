@@ -45,6 +45,7 @@ export default {
         letter: "letter",
         receiver: "receiver",
         receiverLimit: "receiverlimit",
-        validate: 'validate'
+        validate: 'validate',
+        search : 'search'
     }
 };

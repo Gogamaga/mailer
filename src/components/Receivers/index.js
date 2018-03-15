@@ -4,6 +4,8 @@ import TableReceiver from "./TableReceiver";
 import Button from "../button";
 import Receiver from "./Receiver";
 import Tooltip from "../tooltip";
+import Input from "../input/index.jsx";
+import { Select } from "../select";
 
 import utils from "../../utils";
 import request from "../../requests/receiver";
@@ -20,7 +22,10 @@ export default class Receivers extends Component {
             editReceiver_Id: null,
             tooltipText: null,
             statusResponse: false,
-            visibleProgressBar: true
+            visibleProgressBar: true,
+            selectOptionValue: "name",
+            searching: false,
+            searchValue: ""
         };
         this.limit = {
             from: 0,
@@ -33,6 +38,9 @@ export default class Receivers extends Component {
         this.handleEditReceiver = this.handleEditReceiver.bind(this);
         this.handleDeleteReceiver = this.handleDeleteReceiver.bind(this);
         this.hideTooltip = utils.hideTooltip.bind(this);
+        this.hahdneChangeSelect = ::this.hahdneChangeSelect;
+        this.handlerInputSearch = ::this.handlerInputSearch;
+        this.handleGoSearching = ::this.handleGoSearching;
     }
     componentDidMount() {
         receiverRequest.getLimitReceivers(this.limit).then(({ data }) => {
@@ -57,14 +65,23 @@ export default class Receivers extends Component {
         ) {
             this.setState({ visibleProgressBar: true });
             this.limit = Object.assign({}, { from: from + step, to: to + step, step });
-            receiverRequest.getLimitReceivers(this.limit).then(({ data }) => {
-                this.setState(prevState => {
-                    return {
-                        receivers: [...prevState.receivers, ...data.limitReceivers],
-                        visibleProgressBar: false
-                    };
-                });
-            });
+            this.state.searching
+                ? this.getSearchingReceiver(this.state, this.limit).then(({ data }) => {
+                      this.setState(prevState => {
+                          return {
+                              receivers: [...prevState.receivers, ...data.limitReceivers],
+                              visibleProgressBar: false
+                          };
+                      });
+                  })
+                : receiverRequest.getLimitReceivers(this.limit).then(({ data }) => {
+                      this.setState(prevState => {
+                          return {
+                              receivers: [...prevState.receivers, ...data.limitReceivers],
+                              visibleProgressBar: false
+                          };
+                      });
+                  });
         }
     };
 
@@ -75,7 +92,9 @@ export default class Receivers extends Component {
             editReceiver_Id,
             statusResponse,
             tooltipText,
-            visibleProgressBar
+            visibleProgressBar,
+            selectOptionValue,
+            searchValue
         } = this.state;
         return (
             <div className="receivers-wrap" ref={c => (this.receiverWrap = c)}>
@@ -87,6 +106,23 @@ export default class Receivers extends Component {
                 <Button onClick={this.handleCreateReceiver}>
                     {!createReceiver ? "Create Receiver" : "Back to list"}
                 </Button>
+                <div className="receiver__input-search">
+                    <Select
+                        options={["name", "email", "phone"]}
+                        onChange={this.hahdneChangeSelect}
+                        value={selectOptionValue}
+                        style={{ width: "30%", color: "black" }}
+                        className={"receiver__input-search-select"}
+                    />
+                    <Input
+                        onChange={this.handlerInputSearch}
+                        value={searchValue}
+                        onKeyPress={this.handleGoSearching}
+                    />
+                    <Button style={{ height: 50 }} onClick={this.handleGoSearching}>
+                        <i className="fas fa-search" />
+                    </Button>
+                </div>
                 {!createReceiver ? (
                     <TableReceiver
                         receivers={receivers}
@@ -125,5 +161,25 @@ export default class Receivers extends Component {
                 };
             }, this.hideTooltip({ statusResponse: false }, 3000));
         });
+    }
+    hahdneChangeSelect(value) {
+        this.setState({ selectOptionValue: value });
+    }
+    handlerInputSearch(e) {
+        this.setState({ searchValue: e.target.value });
+    }
+    handleGoSearching(e) {
+        if (e.key === "Enter" || e.type === "click") {
+            this.limit = Object.assign({}, this.limit, { from: 0, to: 10 });
+            this.setState({ visibleProgressBar: true, searching: true });
+            this.getSearchingReceiver(this.state, this.limit).then(({ data }) => {
+                this.receiverCount = data.receiverCount;
+                this.setState({ receivers: data.limitReceivers, visibleProgressBar: false });
+            });
+        }
+    }
+    getSearchingReceiver({ searchValue, selectOptionValue }, limit) {
+        const searchingReceiver = { field: selectOptionValue, searchValue };
+        return receiverRequest.searchReceiver(searchingReceiver, limit);
     }
 }

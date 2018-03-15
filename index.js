@@ -30,7 +30,9 @@ app.put("/receiver/:id", receiverRouter.updateReceiver);
 
 app.delete("/receiver/:id", receiverRouter.deleteReceiver);
 // Validate receiver on indentity
-app.post('/receiver/validate', receiverRouter.validateOnIndentity)
+app.post('/receiver/validate', receiverRouter.validateOnIndentity);
+// search receiver
+app.post('/receiver/search', receiverRouter.searchReceiver)
 
 app.post("/letter", letterRouter.saveLetter);
 app.get("/letter", letterRouter.getAllLetters);
