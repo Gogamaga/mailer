@@ -111,7 +111,7 @@ export default class Receivers extends Component {
                         options={["name", "email", "phone"]}
                         onChange={this.hahdneChangeSelect}
                         value={selectOptionValue}
-                        style={{ width: "30%", color: "black" }}
+                        style={{ width: "30%", color: "black", marginRight: 15 }}
                         className={"receiver__input-search-select"}
                     />
                     <Input
